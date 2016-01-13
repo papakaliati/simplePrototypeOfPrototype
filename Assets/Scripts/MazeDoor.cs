@@ -71,8 +71,8 @@ public class MazeDoor : MazePassage {
 
 	public override void OnPlayerExited (bool canOpenDoor) {
 		return;
-		if (!canOpenDoor && !isDoorOpen) return;
 
+		if (!canOpenDoor && !isDoorOpen) return;
 		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
 	    OtherSideOfDoor.cell.room.Hide();
 	}
