@@ -87,12 +87,10 @@ public class Maze : MonoBehaviour {
 			CreatePassage(currentCell, neighbor, direction);
 			activeCells.Add(neighbor);
 		}
-		else if (currentCell.room.settingsIndex == neighbor.room.settingsIndex) {
+		else if (currentCell.room.settingsIndex == neighbor.room.settingsIndex) 
 			CreatePassageInSameRoom(currentCell, neighbor, direction);
-		}
-		else {
+		else 
 			CreateWall(currentCell, neighbor, direction);
-		}
 	}
 
 	private MazeCell CreateCell (IntVector2 coordinates) {
@@ -110,12 +108,10 @@ public class Maze : MonoBehaviour {
 		MazePassage passage = Instantiate(prefab) as MazePassage;
 		passage.Initialize(cell, otherCell, direction);
 		passage = Instantiate(prefab) as MazePassage;
-		if (passage is MazeDoor) {
+		if (passage is MazeDoor) 
 			otherCell.Initialize(CreateRoom(cell.room.settingsIndex));
-		}
-		else {
+		else 
 			otherCell.Initialize(cell.room);
-		}
 		passage.Initialize(otherCell, cell, direction.GetOpposite());
 	}
 
@@ -124,29 +120,27 @@ public class Maze : MonoBehaviour {
 		passage.Initialize(cell, otherCell, direction);
 		passage = Instantiate(passagePrefab) as MazePassage;
 		passage.Initialize(otherCell, cell, direction.GetOpposite());
-		if (cell.room != otherCell.room) {
-			MazeRoom roomToAssimilate = otherCell.room;
-			cell.room.Assimilate(roomToAssimilate);
-			rooms.Remove(roomToAssimilate);
-			Destroy(roomToAssimilate);
-		}
+		if (cell.room == otherCell.room) return;
+
+		MazeRoom roomToAssimilate = otherCell.room;
+		cell.room.Assimilate(roomToAssimilate);
+		rooms.Remove(roomToAssimilate);
+		Destroy(roomToAssimilate);
 	}
 
 	private void CreateWall (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
 		MazeWall wall = Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]) as MazeWall;
 		wall.Initialize(cell, otherCell, direction);
-		if (otherCell != null) {
-			wall = Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]) as MazeWall;
-			wall.Initialize(otherCell, cell, direction.GetOpposite());
-		}
+		if (otherCell == null) return;
+		wall = Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]) as MazeWall;
+		wall.Initialize(otherCell, cell, direction.GetOpposite());
 	}
 
 	private MazeRoom CreateRoom (int indexToExclude) {
 		MazeRoom newRoom = ScriptableObject.CreateInstance<MazeRoom>();
 		newRoom.settingsIndex = Random.Range(0, roomSettings.Length);
-		if (newRoom.settingsIndex == indexToExclude) {
+		if (newRoom.settingsIndex == indexToExclude) 
 			newRoom.settingsIndex = (newRoom.settingsIndex + 1) % roomSettings.Length;
-		}
 		newRoom.settings = roomSettings[newRoom.settingsIndex];
 		rooms.Add(newRoom);
 		return newRoom;
