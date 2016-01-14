@@ -84,11 +84,13 @@ public class Maze : MonoBehaviour {
 		MazeCell neighbor = GetCell(coordinates);
 		if (neighbor == null) {
 			neighbor = CreateCell(coordinates);
-			CreatePassage(currentCell, neighbor, direction);
+			GeneratePassage(currentCell, neighbor, direction, RoomType.DifferentRoom);
+			//CreatePassage(currentCell, neighbor, direction);
 			activeCells.Add(neighbor);
 		}
 		else if (currentCell.room.settingsIndex == neighbor.room.settingsIndex) 
-			CreatePassageInSameRoom(currentCell, neighbor, direction);
+			GeneratePassage(currentCell, neighbor, direction, RoomType.SameRoom);
+		//	CreatePassageInSameRoom(currentCell, neighbor, direction);
 		else 
 			CreateWall(currentCell, neighbor, direction);
 	}
@@ -103,31 +105,38 @@ public class Maze : MonoBehaviour {
 		return newCell;
 	}
 
-	private void CreatePassage (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
-		MazePassage prefab = Random.value < doorProbability ? doorPrefab : passagePrefab;
+	enum RoomType {
+		DifferentRoom,
+		SameRoom
+	}
+
+	private void GeneratePassage (MazeCell cell, MazeCell otherCell, MazeDirection direction, RoomType roomType) {
+		MazePassage prefab = roomType == RoomType.DifferentRoom
+				? (Random.value < doorProbability ? doorPrefab : passagePrefab)
+				: passagePrefab;
+		
 		MazePassage passage = Instantiate(prefab) as MazePassage;
 		passage.Initialize(cell, otherCell, direction);
 		passage = Instantiate(prefab) as MazePassage;
-		if (passage is MazeDoor) 
-			otherCell.Initialize(CreateRoom(cell.room.settingsIndex));
-		else 
-			otherCell.Initialize(cell.room);
+
+		if (roomType == RoomType.DifferentRoom) DifferentRoomAction (cell, otherCell, passage);
 		passage.Initialize(otherCell, cell, direction.GetOpposite());
+		if (roomType == RoomType.SameRoom) SameRoomAction (cell, otherCell);
 	}
 
-	private void CreatePassageInSameRoom (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
-		MazePassage passage = Instantiate(passagePrefab) as MazePassage;
-		passage.Initialize(cell, otherCell, direction);
-		passage = Instantiate(passagePrefab) as MazePassage;
-		passage.Initialize(otherCell, cell, direction.GetOpposite());
+	private void DifferentRoomAction (MazeCell cell, MazeCell otherCell, MazePassage passage) {
+		if (passage is MazeDoor) otherCell.Initialize (CreateRoom (cell.room.settingsIndex));
+		else otherCell.Initialize (cell.room);
+	}
+
+	private void SameRoomAction (MazeCell cell, MazeCell otherCell){
 		if (cell.room == otherCell.room) return;
-
 		MazeRoom roomToAssimilate = otherCell.room;
-		cell.room.Assimilate(roomToAssimilate);
-		rooms.Remove(roomToAssimilate);
-		Destroy(roomToAssimilate);
+		cell.room.Assimilate (roomToAssimilate);
+		rooms.Remove (roomToAssimilate);
+		Destroy (roomToAssimilate);
 	}
-
+		
 	private void CreateWall (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
 		MazeWall wall = Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]) as MazeWall;
 		wall.Initialize(cell, otherCell, direction);

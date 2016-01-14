@@ -6,12 +6,15 @@ public class MazeRoom : ScriptableObject {
 	public int settingsIndex;
 
 	public MazeRoomSettings settings;
+
+	public int RoomSize;
 	
 	private List<MazeCell> cells = new List<MazeCell>();
 
 	public void Add (MazeCell cell) {
 		cell.room = this;
 		cells.Add(cell);
+		RoomSize++;
 	}
 
 	public void Assimilate (MazeRoom room) {
