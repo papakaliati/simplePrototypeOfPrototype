@@ -16,19 +16,14 @@ public class MazeCell : MonoBehaviour {
 		}
 	}
 
-	public MazeDirection RandomUninitializedDirection {
-		get {
-			int skips = Random.Range(0, MazeDirections.Count - initializedEdgeCount);
-			for (int i = 0; i < MazeDirections.Count; i++) {
-				if (edges[i] == null) {
-					if (skips == 0) {
-						return (MazeDirection)i;
-					}
-					skips -= 1;
-				}
-			}
-			throw new System.InvalidOperationException("MazeCell has no uninitialized directions left.");
+	public MazeDirection RandomUninitializedDirection() {
+		int skips = Random.Range (0, MazeDirections.Count - initializedEdgeCount);
+		for (int i = 0; i < MazeDirections.Count; i++) {
+			if (edges [i] != null) continue;
+			if (skips == 0) return (MazeDirection)i;
+			-- skips;
 		}
+		throw new System.InvalidOperationException ("Something is Off");
 	}
 
 	public void Initialize (MazeRoom room) {
@@ -42,7 +37,7 @@ public class MazeCell : MonoBehaviour {
 
 	public void SetEdge (MazeDirection direction, MazeCellEdge edge) {
 		edges[(int)direction] = edge;
-		initializedEdgeCount += 1;
+		++ initializedEdgeCount;
 	}
 
 	public void Show () {

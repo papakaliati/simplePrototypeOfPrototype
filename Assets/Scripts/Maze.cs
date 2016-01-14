@@ -81,7 +81,7 @@ public class Maze : MonoBehaviour {
 			return;
 		}
 
-		MazeDirection direction = currentCell.RandomUninitializedDirection;
+		MazeDirection direction = currentCell.RandomUninitializedDirection();
 		IntVector2 coordinates = currentCell.coordinates + direction.ToIntVector2();
 
 		if (!ContainsCoordinates (coordinates)) {
@@ -112,8 +112,7 @@ public class Maze : MonoBehaviour {
 	}
 
 	private void GeneratePassage (MazeCell cell, MazeCell otherCell, MazeDirection direction, RoomType roomType) {
-		MazePassage prefab = 
-			    roomType == RoomType.DifferentRoom
+		MazePassage prefab = roomType == RoomType.DifferentRoom
 				? (Random.value < doorProbability ? doorPrefab : passagePrefab)
 				: passagePrefab;
 		
@@ -121,15 +120,16 @@ public class Maze : MonoBehaviour {
 		passage.Initialize(cell, otherCell, direction);
 		passage = Instantiate(prefab) as MazePassage;
 
-		if (roomType == RoomType.DifferentRoom) DifferentRoomAction (cell, otherCell, passage);
+		if (roomType == RoomType.DifferentRoom) 
+			DifferentRoomAction (cell, otherCell, passage);
 		passage.Initialize (otherCell, cell, direction.GetOpposite ());
-
 		if (roomType == RoomType.SameRoom && cell.room != otherCell.room) 
 			SameRoomAction (cell, otherCell);
 	}
 
 	private void DifferentRoomAction (MazeCell cell, MazeCell otherCell, MazePassage passage) {
-		if (passage is MazeDoor) otherCell.Initialize (CreateRoom (cell.room.settingsIndex));
+		if (passage is MazeDoor)
+			 otherCell.Initialize (CreateRoom (cell.room.settingsIndex));
 		else otherCell.Initialize (cell.room);
 	}
 

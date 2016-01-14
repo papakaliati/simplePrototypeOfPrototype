@@ -45,7 +45,7 @@ MonoBehaviour:
   cellPrefab: {fileID: 11400000, guid: 8cc5710f710a24360a566370d7049cf8, type: 2}
   passagePrefab: {fileID: 11400000, guid: 4db582300649e4e399ee4a2665f9e8e6, type: 2}
   doorPrefab: {fileID: 11400002, guid: ddd2858d08f2e45f3b4b479b51caf822, type: 2}
-  doorProbability: 0.01
+  doorProbability: 0.1
   wallPrefabs:
   - {fileID: 11409166, guid: ae430629cc4af44488646644c21ca2d7, type: 2}
   roomSettings:
@@ -168,7 +168,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: cd764ab8662bea6468202df8741bcfd3, type: 2}
     - target: {fileID: 0}
       propertyPath: doorProbability
-      value: 0.01
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
