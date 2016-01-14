@@ -6,6 +6,8 @@ public class MazeDoor : MazePassage {
 		normalRotation = Quaternion.Euler(0f, -90f, 0f),
 		mirroredRotation = Quaternion.Euler(0f, 90f, 0f);
 
+	private int count;                          // The number of colliders present that should open the doors.
+
 	public Transform hinge;
 
 	private bool isMirrored;
@@ -17,7 +19,32 @@ public class MazeDoor : MazePassage {
 			return otherCell.GetEdge(direction.GetOpposite()) as MazeDoor;
 		}
 	}
-	
+
+
+	private GameObject player;                  // Reference to the player GameObject.
+
+	void Awake() {
+		//player = GameObject.FindWithTag ("Player");
+	}
+
+	void OnTriggerEnter (Collider other)
+	{
+		// If the triggering gameobject is the player...
+		if(other.gameObject.tag == "Player")
+		{
+			// ... if this door requires a key...
+		
+				// If the door doesn't require a key, increase the count of triggering objects.
+				count++;
+
+		}
+		// If the triggering gameobject is an enemy...
+
+	}
+
+
+
+
 	public override void Initialize (MazeCell primary, MazeCell other, MazeDirection direction) {
 		base.Initialize(primary, other, direction);
 		if (OtherSideOfDoor != null) {

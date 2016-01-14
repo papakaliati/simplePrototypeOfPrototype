@@ -8,8 +8,6 @@ public class Maze : MonoBehaviour {
 
 	public MazeCell cellPrefab;
 
-	public float generationStepDelay;
-
 	public MazePassage passagePrefab;
 
 	public MazeDoor doorPrefab;
@@ -38,35 +36,17 @@ public class Maze : MonoBehaviour {
 	public MazeCell GetCell (IntVector2 coordinates) {
 		return cells[coordinates.x, coordinates.z];
 	}
-
-
-	/*
-	public IEnumerator Generate () {
-		WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
+		
+	public void Generate () {
 		cells = new MazeCell[size.x, size.z];
 		List<MazeCell> activeCells = new List<MazeCell>();
 		DoFirstGenerationStep(activeCells);
-		while (activeCells.Count > 0) {
-			yield return delay;
-			DoNextGenerationStep(activeCells);
-		}
-		for (int i = 0; i < rooms.Count; i++) {
-			rooms[i].Hide();
-		}
+		while (activeCells.Count > 0) 
+			DoNextGenerationStep(activeCells);	
+		//	for (int i = 0; i < rooms.Count; i++) {
+		//	rooms[i].Hide();
+		//	}
 	}
-	*/
-
-		public void Generate () {
-			cells = new MazeCell[size.x, size.z];
-			List<MazeCell> activeCells = new List<MazeCell>();
-			DoFirstGenerationStep(activeCells);
-			while (activeCells.Count > 0) {
-				DoNextGenerationStep(activeCells);
-			}
-//			for (int i = 0; i < rooms.Count; i++) {
-//				rooms[i].Hide();
-//			}
-		}
 
 
 	private void DoFirstGenerationStep (List<MazeCell> activeCells) {
@@ -86,22 +66,24 @@ public class Maze : MonoBehaviour {
 
 		MazeDirection direction = currentCell.RandomUninitializedDirection;
 		IntVector2 coordinates = currentCell.coordinates + direction.ToIntVector2();
-		if (ContainsCoordinates(coordinates)) {
-			MazeCell neighbor = GetCell(coordinates);
-			if (neighbor == null) {
-				neighbor = CreateCell(coordinates);
-				CreatePassage(currentCell, neighbor, direction);
-				activeCells.Add(neighbor);
-			}
-			else if (currentCell.room.settingsIndex == neighbor.room.settingsIndex) {
-				CreatePassageInSameRoom(currentCell, neighbor, direction);
-			}
-			else {
-				CreateWall(currentCell, neighbor, direction);
-			}
+
+		//End of the Maze, outer maze walls
+		if (!ContainsCoordinates (coordinates)) {
+			CreateWall (currentCell, null, direction);
+			return;
+		}
+			
+		MazeCell neighbor = GetCell(coordinates);
+		if (neighbor == null) {
+			neighbor = CreateCell(coordinates);
+			CreatePassage(currentCell, neighbor, direction);
+			activeCells.Add(neighbor);
+		}
+		else if (currentCell.room.settingsIndex == neighbor.room.settingsIndex) {
+			CreatePassageInSameRoom(currentCell, neighbor, direction);
 		}
 		else {
-			CreateWall(currentCell, null, direction);
+			CreateWall(currentCell, neighbor, direction);
 		}
 	}
 
