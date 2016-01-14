@@ -51,9 +51,8 @@ public class Maze : MonoBehaviour {
 		DoFirstGenerationStep(activeCells);
 		while (activeCells.Count > 0) 
 			DoNextGenerationStep(activeCells);	
-		//	for (int i = 0; i < rooms.Count; i++) {
+		//	for (int i = 0; i < rooms.Count; i++) 
 		//	rooms[i].Hide();
-		//	}
 	}
 
 
