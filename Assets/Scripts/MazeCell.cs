@@ -52,18 +52,4 @@ public class MazeCell : MonoBehaviour {
 	public void Hide () {
 		gameObject.SetActive(false);
 	}
-
-	public void OnPlayerEntered (bool canOpenDoor) {
-		room.Show();
-		for (int i = 0; i < edges.Length; i++) {
-			edges[i].OnPlayerEntered(canOpenDoor);
-		}
-	}
-	
-	public void OnPlayerExited (bool canOpenDoor) {
-	//	room.Hide();
-		for (int i = 0; i < edges.Length; i++) {
-			edges[i].OnPlayerExited(canOpenDoor);
-		}
-	}
 }

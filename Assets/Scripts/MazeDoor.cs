@@ -12,7 +12,7 @@ public class MazeDoor : MazePassage {
 
 	private bool isMirrored;
 
-	public bool isDoorOpen = false;
+	private bool isDoorOpen = false;
 
 	private MazeDoor OtherSideOfDoor {
 		get {
@@ -20,32 +20,46 @@ public class MazeDoor : MazePassage {
 		}
 	}
 
+	private bool hasTriggerBeenUsed = false; // This is to make sure that the button is not repeatedly pressed.
+	private bool setTrigger = false;
 
-	private GameObject player;                  // Reference to the player GameObject.
-
-	void Awake() {
-		//player = GameObject.FindWithTag ("Player");
-	}
-
-	void OnTriggerEnter (Collider other)
-	{
-		// If the triggering gameobject is the player...
-		if(other.gameObject.tag == "Player")
-		{
-			// ... if this door requires a key...
-		
-				// If the door doesn't require a key, increase the count of triggering objects.
-				count++;
-
+	private void OnTriggerStay() {
+		if (Input.GetKeyDown(KeyCode.R) && !hasTriggerBeenUsed) {
+			DoorInterraction(true);
+			setTrigger = true;
 		}
-		// If the triggering gameobject is an enemy...
+		else if (Input.GetKeyDown(KeyCode.R) && hasTriggerBeenUsed) {
+			DoorInterraction(true);
+			setTrigger = true;
+		}
+		if (setTrigger) { hasTriggerBeenUsed = !hasTriggerBeenUsed; }
+	}
+		
+	public void DoorInterraction (bool canOpenDoor) {
+		if (!canOpenDoor) return;
 
+		if (isDoorOpen && canOpenDoor) {
+			CloseDoor ();
+			return;
+		}
+		if (!isDoorOpen)
+			isDoorOpen = true;
+
+		OtherSideOfDoor.isDoorOpen = true;
+
+		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
+		OtherSideOfDoor.cell.room.Show();
 	}
 
-
-
+	private void CloseDoor() {
+		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
+		OtherSideOfDoor.cell.room.Hide();
+		isDoorOpen = false;
+		OtherSideOfDoor.isDoorOpen = false;
+	}
 
 	public override void Initialize (MazeCell primary, MazeCell other, MazeDirection direction) {
+		isDoorOpen = false;
 		base.Initialize(primary, other, direction);
 		if (OtherSideOfDoor != null) {
 			isMirrored = true;
@@ -62,45 +76,4 @@ public class MazeDoor : MazePassage {
 		}
 	}
 
-//	public override void OnPlayerEntered () {
-//		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
-//		OtherSideOfDoor.cell.room.Show();
-//	}
-//	
-//	public override void OnPlayerExited () {
-//		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
-//		OtherSideOfDoor.cell.room.Hide();
-//	}
-
-	public override void OnPlayerEntered (bool canOpenDoor) {
-		if (!canOpenDoor) return;
-
-		if (isDoorOpen && canOpenDoor) {
-			CloseDoor ();
-			return;
-		}
-		if (!isDoorOpen)
-			isDoorOpen = true;
-		
-		OtherSideOfDoor.isDoorOpen = true;
-
-		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
-		OtherSideOfDoor.cell.room.Show();
-	}
-
-	private void CloseDoor() {
-		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
-		OtherSideOfDoor.cell.room.Hide();
-	//	OnPlayerExited (true);
-		isDoorOpen = false;
-		OtherSideOfDoor.isDoorOpen = false;
-	}
-
-	public override void OnPlayerExited (bool canOpenDoor) {
-		return;
-
-		if (!canOpenDoor && !isDoorOpen) return;
-		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
-	    OtherSideOfDoor.cell.room.Hide();
-	}
 }
