@@ -29,22 +29,16 @@ public class Maze : MonoBehaviour {
 
 	private List<MazeRoom> rooms = new List<MazeRoom>();
 
-	#endregion
-
-	public IntVector2 RandomCoordinates {
+	private IntVector2 RandomCoordinates {
 		get {
 			return new IntVector2(Random.Range(0, size.x), Random.Range(0, size.z));
 		}
 	}
 
-	public bool ContainsCoordinates (IntVector2 coordinate) {
-		return coordinate.x >= 0 && coordinate.x < size.x && coordinate.z >= 0 && coordinate.z < size.z;
-	}
+	#endregion
 
-	public MazeCell GetCell (IntVector2 coordinates) {
-		return cells[coordinates.x, coordinates.z];
-	}
-		
+	#region Public Methods
+
 	public void Generate () {
 		cells = new MazeCell[size.x, size.z];
 		List<MazeCell> activeCells = new List<MazeCell>();
@@ -55,6 +49,22 @@ public class Maze : MonoBehaviour {
 		//	rooms[i].Hide();
 	}
 
+	#endregion
+
+	#region Private Methods
+
+	private enum RoomType {
+		DifferentRoom,
+		SameRoom
+	}
+
+	private bool ContainsCoordinates (IntVector2 coordinate) {
+		return coordinate.x >= 0 && coordinate.x < size.x && coordinate.z >= 0 && coordinate.z < size.z;
+	}
+		
+	private MazeCell GetCell (IntVector2 coordinates) {
+		return cells[coordinates.x, coordinates.z];
+	}
 
 	private void DoFirstGenerationStep (List<MazeCell> activeCells) {
 		MazeCell newCell = CreateCell(RandomCoordinates);
@@ -99,11 +109,6 @@ public class Maze : MonoBehaviour {
 		newCell.transform.parent = transform;
 		newCell.transform.localPosition = new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);
 		return newCell;
-	}
-
-	private enum RoomType {
-		DifferentRoom,
-		SameRoom
 	}
 
 	private void GeneratePassage (MazeCell cell, MazeCell otherCell, MazeDirection direction, RoomType roomType) {
@@ -152,4 +157,6 @@ public class Maze : MonoBehaviour {
 		rooms.Add(newRoom);
 		return newRoom;
 	}
+
+	#endregion
 }
