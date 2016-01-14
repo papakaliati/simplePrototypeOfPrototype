@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Maze : MonoBehaviour {
 
+	#region Public Properties
+
 	public IntVector2 size;
 
 	public MazeCell cellPrefab;
@@ -19,9 +21,15 @@ public class Maze : MonoBehaviour {
 
 	public MazeRoomSettings[] roomSettings;
 
+	#endregion
+
+	#region private Properties
+
 	private MazeCell[,] cells;
 
 	private List<MazeRoom> rooms = new List<MazeRoom>();
+
+	#endregion
 
 	public IntVector2 RandomCoordinates {
 		get {
