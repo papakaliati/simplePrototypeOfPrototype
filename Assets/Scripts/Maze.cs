@@ -75,7 +75,6 @@ public class Maze : MonoBehaviour {
 		MazeDirection direction = currentCell.RandomUninitializedDirection;
 		IntVector2 coordinates = currentCell.coordinates + direction.ToIntVector2();
 
-		//End of the Maze, outer maze walls
 		if (!ContainsCoordinates (coordinates)) {
 			CreateWall (currentCell, null, direction);
 			return;
@@ -85,12 +84,10 @@ public class Maze : MonoBehaviour {
 		if (neighbor == null) {
 			neighbor = CreateCell(coordinates);
 			GeneratePassage(currentCell, neighbor, direction, RoomType.DifferentRoom);
-			//CreatePassage(currentCell, neighbor, direction);
 			activeCells.Add(neighbor);
 		}
 		else if (currentCell.room.settingsIndex == neighbor.room.settingsIndex) 
 			GeneratePassage(currentCell, neighbor, direction, RoomType.SameRoom);
-		//	CreatePassageInSameRoom(currentCell, neighbor, direction);
 		else 
 			CreateWall(currentCell, neighbor, direction);
 	}
@@ -105,13 +102,14 @@ public class Maze : MonoBehaviour {
 		return newCell;
 	}
 
-	enum RoomType {
+	private enum RoomType {
 		DifferentRoom,
 		SameRoom
 	}
 
 	private void GeneratePassage (MazeCell cell, MazeCell otherCell, MazeDirection direction, RoomType roomType) {
-		MazePassage prefab = roomType == RoomType.DifferentRoom
+		MazePassage prefab = 
+			    roomType == RoomType.DifferentRoom
 				? (Random.value < doorProbability ? doorPrefab : passagePrefab)
 				: passagePrefab;
 		
@@ -120,8 +118,10 @@ public class Maze : MonoBehaviour {
 		passage = Instantiate(prefab) as MazePassage;
 
 		if (roomType == RoomType.DifferentRoom) DifferentRoomAction (cell, otherCell, passage);
-		passage.Initialize(otherCell, cell, direction.GetOpposite());
-		if (roomType == RoomType.SameRoom) SameRoomAction (cell, otherCell);
+		passage.Initialize (otherCell, cell, direction.GetOpposite ());
+
+		if (roomType == RoomType.SameRoom && cell.room != otherCell.room) 
+			SameRoomAction (cell, otherCell);
 	}
 
 	private void DifferentRoomAction (MazeCell cell, MazeCell otherCell, MazePassage passage) {
@@ -130,7 +130,6 @@ public class Maze : MonoBehaviour {
 	}
 
 	private void SameRoomAction (MazeCell cell, MazeCell otherCell){
-		if (cell.room == otherCell.room) return;
 		MazeRoom roomToAssimilate = otherCell.room;
 		cell.room.Assimilate (roomToAssimilate);
 		rooms.Remove (roomToAssimilate);
