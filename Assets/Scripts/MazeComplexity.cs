@@ -7,13 +7,16 @@ public class MazeComplexity  {
 	
 	public Dictionary <MazeRoom, Dictionary< MazeCell, int>> AcceptableLocationsDictionary = 
 		new Dictionary<MazeRoom, Dictionary<MazeCell, int>>();
+	public Dictionary <MazeRoom, Dictionary< MazeCell, int>> roomMapping = 
+		new Dictionary<MazeRoom, Dictionary<MazeCell, int>>();
+
 
 	public MazeComplexity(List<MazeRoom> maze ) {
 		CalculateMazeComplexity (maze);
 	}
 
-	private Dictionary <MazeRoom, Dictionary< MazeCell, int>> roomMapping = new Dictionary<MazeRoom, Dictionary<MazeCell, int>>();
 
+		
 	//A room is considered available if it has size more than 10 cells
 	private List<MazeRoom> GetAvailableRoomsForObjectPlacement (List<MazeRoom> rooms) {
 		return rooms.OrderByDescending (x => x.RoomSize).Where (x => x.RoomSize > 10).ToList ();
@@ -23,11 +26,10 @@ public class MazeComplexity  {
 		var availableRooms = GetAvailableRoomsForObjectPlacement (rooms);
 		foreach (var room in availableRooms) 
 			CalculateRoomComplexity (room);
-
 		FilterDictionaries (); 
 	}
 
-	private void FilterDictionaries (){
+	private void FilterDictionaries () {
 		foreach (var pair in roomMapping) {
 			Debug.LogFormat (" RoomID : {0} RoomSize  : {1}", pair.Key.RoomId, pair.Key.RoomSize); 
 			foreach (var pairy in pair.Value)

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class MazeDoor : MazePassage {
 
@@ -6,7 +7,7 @@ public class MazeDoor : MazePassage {
 		normalRotation = Quaternion.Euler(0f, -90f, 0f),
 		mirroredRotation = Quaternion.Euler(0f, 90f, 0f);
 
-	private int count;                          // The number of colliders present that should open the doors.
+	private int count;                     
 
 	public Transform hinge;
 

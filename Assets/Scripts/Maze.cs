@@ -61,9 +61,49 @@ public class Maze : MonoBehaviour {
 		//	for (int i = 0; i < rooms.Count; i++) 
 		//	rooms[i].Hide();
 		mazeComplexity = new MazeComplexity(rooms);
+		CheckDoorsPerRoom ();
+	}
+
+	private void CheckDoorsPerRoom() {
+		foreach (var item in mazeComplexity.roomMapping) {
+			var room = item.Key;
+			var pair = item.Value;
+			foreach (var element in pair) 
+				if (element.Value == 0) {
+					var cell = element.Key;
+					var door = CheckIfCellContainsDoors (cell);
+					if (door == null) continue;
+					room.DoorsList.Add (door);
+				}
+		}
+		PrintDoors ();
+		//	OptimizeDoors ();
+	}
+
+	private void PrintDoors() {
+		foreach (var item in mazeComplexity.roomMapping) {
+			var room = item.Key;
+			var pair = item.Value;
+			Debug.LogFormat ( " Size of Room : {0} Number of doors  : {1}", room.RoomSize, room.DoorsList.Count() );
+			Debug.LogFormat (" Cell of Door : {0}", room.DoorsList [0].cell);
+			foreach (var door in room.DoorsList) {
+				Debug.LogFormat ( " Door : {0} Connecting Rooms : {1} - {2}", 
+					door.cell.name , door.cell.room.RoomId, door.otherCell.room.RoomId );
+			}
+		}
 	}
 
 
+	private void OptimizeDoors() {
+		
+	}
+		
+	private MazeDoor CheckIfCellContainsDoors(MazeCell cell) {
+		foreach (var edge in cell.edges)
+			if (edge is MazeDoor)
+				return (MazeDoor)edge;
+		return null;
+	}
 		
 	#region Private Methods
 
@@ -125,7 +165,7 @@ public class Maze : MonoBehaviour {
 		newCell.transform.localPosition = new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);
 		return newCell;
 	}
-
+		
 	private void GeneratePassage (MazeCell cell, MazeCell otherCell, MazeDirection direction, RoomType roomType) {
 		MazePassage prefab = roomType == RoomType.DifferentRoom
 				? (Random.value < doorProbability ? doorPrefab : passagePrefab)
@@ -145,7 +185,8 @@ public class Maze : MonoBehaviour {
 	private void DifferentRoomAction (MazeCell cell, MazeCell otherCell, MazePassage passage) {
 		if (passage is MazeDoor)
 			 otherCell.Initialize (CreateRoom (cell.room.settingsIndex));
-		else otherCell.Initialize (cell.room);
+		else 
+			otherCell.Initialize (cell.room);
 	}
 
 	private void SameRoomAction (MazeCell cell, MazeCell otherCell){
@@ -155,7 +196,7 @@ public class Maze : MonoBehaviour {
 		Destroy (roomToAssimilate);
 	}
 
-	void WallGeneration (MazeCell cell, MazeCell otherCell, MazeDirection direction, int randomNumber1, int randomNumber2) {
+	public void WallGeneration (MazeCell cell, MazeCell otherCell, MazeDirection direction, int randomNumber1, int randomNumber2) {
 		MazeWall wall = Instantiate (wallSettings.wallPrefabs [randomNumber1]) as MazeWall;
 		wall.Initialize (cell, otherCell, direction);
 		if (otherCell == null) return;
@@ -165,12 +206,11 @@ public class Maze : MonoBehaviour {
 
 	private void CreateWall (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
 		int randomNumber1, randomNumber2;
-		if (wallSettings.wallPropabilityAttributes.Count() != wallSettings.wallPrefabs.Count() || wallSettings.wallPropabilityAttributes.Sum() != 100) {
-			 randomNumber1 = Random.Range (0, wallSettings.wallPrefabs.Length);
-			 randomNumber2 = Random.Range (0, wallSettings.wallPrefabs.Length);
-		}
-		else {
-			 randomNumber1 = PropabiliesCalulations<int>.GetRandomSelection (wallSettings.wallPropabilityAttributes);
+		if (wallSettings.wallPropabilityAttributes.Count () != wallSettings.wallPrefabs.Count () || wallSettings.wallPropabilityAttributes.Sum () != 100) {
+			randomNumber1 = Random.Range (0, wallSettings.wallPrefabs.Length);
+			randomNumber2 = Random.Range (0, wallSettings.wallPrefabs.Length);
+		} else {
+			randomNumber1 = PropabiliesCalulations<int>.GetRandomSelection (wallSettings.wallPropabilityAttributes);
 			randomNumber2 = PropabiliesCalulations<int>.GetRandomSelection (wallSettings.wallPropabilityAttributes);
 		}
 		WallGeneration (cell, otherCell, direction, randomNumber1, randomNumber2);

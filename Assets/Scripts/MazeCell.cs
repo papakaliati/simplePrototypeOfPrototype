@@ -7,7 +7,7 @@ public class MazeCell : MonoBehaviour {
 
 	public MazeRoom room;
 
-	private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
+	public MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
 
 	private int initializedEdgeCount;
 
@@ -18,7 +18,7 @@ public class MazeCell : MonoBehaviour {
 			return initializedEdgeCount == MazeDirections.Count;
 		}
 	}
-
+		
 	public MazeDirection RandomUninitializedDirection() {
 		int skips = Random.Range (0, MazeDirections.Count - initializedEdgeCount);
 		for (int i = 0; i < MazeDirections.Count; i++) {

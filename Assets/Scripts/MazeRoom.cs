@@ -9,6 +9,8 @@ public class MazeRoom : ScriptableObject {
 
 	public int RoomSize;
 
+	public List<MazeDoor> DoorsList = new List<MazeDoor>();
+
 	public int RoomId;
 
 	public List<MazeCell> cells = new List<MazeCell>();

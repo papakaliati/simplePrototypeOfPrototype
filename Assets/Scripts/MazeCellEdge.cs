@@ -2,7 +2,6 @@
 
 public abstract class MazeCellEdge : MonoBehaviour {
 
-
 	public MazeCell cell, otherCell;
 
 	public MazeDirection direction;
