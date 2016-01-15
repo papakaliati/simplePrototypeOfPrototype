@@ -31,7 +31,7 @@ public class MazeComplexity  {
 		foreach (var pair in roomMapping) {
 			Debug.LogFormat (" RoomID : {0} RoomSize  : {1}", pair.Key.RoomId, pair.Key.RoomSize); 
 			foreach (var pairy in pair.Value)
-				if (pairy.Value > 1) {
+				if (pairy.Value > 0) {
 					Debug.LogFormat ("The Cell : {0} has complexity : {1}", pairy.Key.name, pairy.Value); 
 					SaveComplexityToDictionary (pairy.Key, pair.Key, pairy.Value, AcceptableLocationsDictionary); 
 				}
