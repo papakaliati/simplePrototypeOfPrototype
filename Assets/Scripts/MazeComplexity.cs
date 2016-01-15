@@ -10,12 +10,9 @@ public class MazeComplexity  {
 	public Dictionary <MazeRoom, Dictionary< MazeCell, int>> roomMapping = 
 		new Dictionary<MazeRoom, Dictionary<MazeCell, int>>();
 
-
 	public MazeComplexity(List<MazeRoom> maze ) {
 		CalculateMazeComplexity (maze);
 	}
-
-
 		
 	//A room is considered available if it has size more than 10 cells
 	private List<MazeRoom> GetAvailableRoomsForObjectPlacement (List<MazeRoom> rooms) {

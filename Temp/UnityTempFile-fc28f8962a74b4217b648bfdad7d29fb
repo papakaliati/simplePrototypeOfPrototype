@@ -78,6 +78,7 @@
 -define:UNITY_EDITOR_64
 -define:UNITY_EDITOR_OSX
 -define:CROSS_PLATFORM_INPUT
+'Assets/Scripts/DoorsOptimization.cs'
 'Assets/Scripts/GameManager.cs'
 'Assets/Scripts/IntVector2.cs'
 'Assets/Scripts/Maze.cs'

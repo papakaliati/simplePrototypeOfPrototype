@@ -61,7 +61,7 @@ public class Maze : MonoBehaviour {
 		//	for (int i = 0; i < rooms.Count; i++) 
 		//	rooms[i].Hide();
 		mazeComplexity = new MazeComplexity(rooms);
-		CheckDoorsPerRoom ();
+		var doorsOptimization = new DoorsOptimization(mazeComplexity.roomMapping);
 	}
 
 	private void CheckDoorsPerRoom() {
@@ -77,8 +77,11 @@ public class Maze : MonoBehaviour {
 				}
 		}
 		PrintDoors ();
-		//	OptimizeDoors ();
+		OptimizeDoors ();
 	}
+
+	private Dictionary<MazeCell, string> doorConnections = new Dictionary<MazeCell, string>();
+	private Dictionary<string, int> doorMultiplication = new Dictionary<string, int>();
 
 	private void PrintDoors() {
 		foreach (var item in mazeComplexity.roomMapping) {
@@ -89,6 +92,15 @@ public class Maze : MonoBehaviour {
 			foreach (var door in room.DoorsList) {
 				Debug.LogFormat ( " Door : {0} Connecting Rooms : {1} - {2}", 
 					door.cell.name , door.cell.room.RoomId, door.otherCell.room.RoomId );
+
+				var connection = door.cell.room.RoomId.ToString() + door.otherCell.room.RoomId.ToString();
+
+				doorConnections.Add (door.cell, connection);
+
+				if (doorMultiplication.ContainsKey (connection))
+					++doorMultiplication [connection];
+				else
+					doorMultiplication.Add (connection, 0);
 			}
 		}
 	}

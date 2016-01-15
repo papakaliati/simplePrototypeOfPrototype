@@ -25,15 +25,18 @@ public class MazeDoor : MazePassage {
 	private bool setTrigger = false;
 
 	private void OnTriggerStay() {
+		if (hasTriggerBeenUsed)
+			return;
+
 		if (Input.GetKeyDown(KeyCode.R) && !hasTriggerBeenUsed) {
 			DoorInterraction(true);
 			setTrigger = true;
 		}
-		else if (Input.GetKeyDown(KeyCode.R) && hasTriggerBeenUsed) {
+		else if (Input.GetKeyDown(KeyCode.R) && !hasTriggerBeenUsed) {
 			DoorInterraction(true);
 			setTrigger = true;
 		}
-		if (setTrigger) { hasTriggerBeenUsed = !hasTriggerBeenUsed; }
+		if (setTrigger) { hasTriggerBeenUsed = true; }
 	}
 		
 	public void DoorInterraction (bool canOpenDoor) {
