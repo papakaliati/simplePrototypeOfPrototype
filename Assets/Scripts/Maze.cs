@@ -60,7 +60,6 @@ public class Maze : MonoBehaviour {
 			DoNextGenerationStep(activeCells);	
 		//	for (int i = 0; i < rooms.Count; i++) 
 		//	rooms[i].Hide();
-
 		mazeComplexity = new MazeComplexity(rooms);
 	}
 
@@ -171,8 +170,8 @@ public class Maze : MonoBehaviour {
 			 randomNumber2 = Random.Range (0, wallSettings.wallPrefabs.Length);
 		}
 		else {
-			 randomNumber1 = PropabiliesCalulations.GetRandomSelection (wallSettings.wallPropabilityAttributes);
-			 randomNumber2 = PropabiliesCalulations.GetRandomSelection (wallSettings.wallPropabilityAttributes);
+			 randomNumber1 = PropabiliesCalulations<int>.GetRandomSelection (wallSettings.wallPropabilityAttributes);
+			randomNumber2 = PropabiliesCalulations<int>.GetRandomSelection (wallSettings.wallPropabilityAttributes);
 		}
 		WallGeneration (cell, otherCell, direction, randomNumber1, randomNumber2);
 	}
