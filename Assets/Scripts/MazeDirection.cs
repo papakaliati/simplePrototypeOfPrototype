@@ -36,12 +36,24 @@ public static class MazeDirections {
 		return (MazeDirection)(((int)direction + Count - 1) % Count);
 	}
 	
-	private static IntVector2[] vectors = {
+	public static IntVector2[] vectors = {
 		new IntVector2(0, 1),
 		new IntVector2(1, 0),
 		new IntVector2(0, -1),
 		new IntVector2(-1, 0)
 	};
+
+	public static IntVector2[] vectorsAllDirections = {
+		new IntVector2(0, 1),
+		new IntVector2(1, 0),
+		new IntVector2(0, -1),
+		new IntVector2(-1, 0),		
+		new IntVector2(1, 1),
+		new IntVector2(-1, -1),
+		new IntVector2(1, -1),
+		new IntVector2(-1, 1)
+	};
+
 	
 	public static IntVector2 ToIntVector2 (this MazeDirection direction) {
 		return vectors[(int)direction];

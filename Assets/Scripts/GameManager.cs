@@ -7,6 +7,11 @@ public class GameManager : MonoBehaviour {
 
 	private Maze mazeInstance;
 
+
+	public void RestartGame () {
+		BeginGame();
+	}
+
 	private void Start () {
 	   BeginGame();
 	}
@@ -26,9 +31,9 @@ public class GameManager : MonoBehaviour {
 
 		Camera.main.clearFlags = CameraClearFlags.Depth;
 		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
-	}
 
-	private void RestartGame () {
-	    BeginGame();
+		for (var i = 0; i < 3; i++)
+			if (mazeInstance.mazeComplexity.AcceptableLocationsDictionary.Count == 0)
+				RestartGame ();
 	}
 }

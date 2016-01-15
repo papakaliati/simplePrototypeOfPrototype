@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class MazeCell : MonoBehaviour {
 
@@ -9,6 +10,8 @@ public class MazeCell : MonoBehaviour {
 	private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
 
 	private int initializedEdgeCount;
+
+	public int WallCount { private set; get;}
 
 	public bool IsFullyInitialized {
 		get {
@@ -26,6 +29,22 @@ public class MazeCell : MonoBehaviour {
 		throw new System.InvalidOperationException ("Something is Off");
 	}
 
+	public static List<MazeCell> GetNeighborhoodCells(MazeCell cell, MazeRoom room, int factor) {
+		List<MazeCell> cells = new List<MazeCell>();
+
+		foreach (IntVector2 vectors in MazeDirections.vectorsAllDirections) {
+			IntVector2 tempVector = new IntVector2(0,0);
+			for (int k = 0; k < factor+1; ++k)
+				tempVector += vectors ;
+			IntVector2 coordinates = cell.coordinates + tempVector;
+
+			var celly = room.cells.Find (x => x.coordinates == coordinates);
+			if (celly != null)
+				cells.Add (celly);
+		}
+		return cells;
+	}
+
 	public void Initialize (MazeRoom room) {
 		room.Add(this);
 		transform.GetChild(0).GetComponent<Renderer>().material = room.settings.floorMaterial;
@@ -36,6 +55,8 @@ public class MazeCell : MonoBehaviour {
 	}
 
 	public void SetEdge (MazeDirection direction, MazeCellEdge edge) {
+		if (!(edge is MazePassage))
+			++WallCount;
 		edges[(int)direction] = edge;
 		++ initializedEdgeCount;
 	}

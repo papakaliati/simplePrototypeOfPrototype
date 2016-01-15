@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Maze : MonoBehaviour {
 
@@ -19,8 +20,12 @@ public class Maze : MonoBehaviour {
 
 	public MazeWall[] wallPrefabs;
 
+	public RoomDecoration[] roomDecorations;
+
 	public MazeRoomSettings[] roomSettings;
 
+	public MazeComplexity mazeComplexity { private set ; get;}
+		 
 	#endregion
 
 	#region private Properties
@@ -37,8 +42,6 @@ public class Maze : MonoBehaviour {
 
 	#endregion
 
-	#region Public Methods
-
 	public void Generate () {
 		cells = new MazeCell[size.x, size.z];
 		List<MazeCell> activeCells = new List<MazeCell>();
@@ -47,12 +50,15 @@ public class Maze : MonoBehaviour {
 			DoNextGenerationStep(activeCells);	
 		//	for (int i = 0; i < rooms.Count; i++) 
 		//	rooms[i].Hide();
+
+		mazeComplexity = new MazeComplexity(rooms);
 	}
 
-	#endregion
 
+		
 	#region Private Methods
 
+		
 	private enum RoomType {
 		DifferentRoom,
 		SameRoom
@@ -148,8 +154,10 @@ public class Maze : MonoBehaviour {
 		wall.Initialize(otherCell, cell, direction.GetOpposite());
 	}
 
+	private int roomCounter = 0;
 	private MazeRoom CreateRoom (int indexToExclude) {
 		MazeRoom newRoom = ScriptableObject.CreateInstance<MazeRoom>();
+		newRoom.RoomId = roomCounter++;
 		newRoom.settingsIndex = Random.Range(0, roomSettings.Length);
 		if (newRoom.settingsIndex == indexToExclude) 
 			newRoom.settingsIndex = (newRoom.settingsIndex + 1) % roomSettings.Length;

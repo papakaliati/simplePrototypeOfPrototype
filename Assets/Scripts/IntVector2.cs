@@ -13,4 +13,26 @@ public struct IntVector2 {
 		a.z += b.z;
 		return a;
 	}
+
+	public static bool operator == (IntVector2 a, IntVector2 b) {
+		try {
+			return (a.x == b.x && a.z == b.z) ? true : false;
+		} catch {
+			return false;
+		}
+	}
+
+	public static bool operator != (IntVector2 a, IntVector2 b) {
+		try {
+			return (a.x != b.x || a.z != b.z) ? true : false;
+		} catch {
+			return false;
+		}
+	}
+
+//	public static bool operator Equals(IntVector2 obj)
+//	{
+//		return (x == obj.x
+//		&& z == obj.z);
+//	}
 }

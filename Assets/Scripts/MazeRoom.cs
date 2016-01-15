@@ -8,8 +8,10 @@ public class MazeRoom : ScriptableObject {
 	public MazeRoomSettings settings;
 
 	public int RoomSize;
-	
-	private List<MazeCell> cells = new List<MazeCell>();
+
+	public int RoomId;
+
+	public List<MazeCell> cells = new List<MazeCell>();
 
 	public void Add (MazeCell cell) {
 		cell.room = this;
