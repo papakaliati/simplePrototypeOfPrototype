@@ -7,7 +7,8 @@ using System.Linq;
 
 public class WallSettings {
 	public MazeWall[] wallPrefabs;
-	[Header("Walls Attribution Rate, need to be 100 in total, otherwise even distribution")]
+	[Tooltip("Total sum should be 100.")]
+	[Header("Walls Attribution Rate, sum needs to be 100, otherwise even distribution")]
 	[Range(0, 100)]
 	public int[] wallPropabilityAttributes ;
 }
