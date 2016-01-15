@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+[System.Serializable]
+
+public class WallSettings {
+	public MazeWall[] wallPrefabs;
+	[Range(0, 100)]
+	public int[] wallPropabilityAttributes ;
+}
+
 public class Maze : MonoBehaviour {
 
 	#region Public Properties
@@ -18,7 +26,11 @@ public class Maze : MonoBehaviour {
 	[Range(0f, 1f)]
 	public float doorProbability;
 
-	public MazeWall[] wallPrefabs;
+//	public MazeWall[] wallPrefabs;
+//	[Range(0, 100)]
+//	public int[] wallPropabilityAttributes ;
+
+	public WallSettings wallSettings;
 
 	public RoomDecoration[] roomDecorations;
 
@@ -145,13 +157,26 @@ public class Maze : MonoBehaviour {
 		rooms.Remove (roomToAssimilate);
 		Destroy (roomToAssimilate);
 	}
-		
-	private void CreateWall (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
-		MazeWall wall = Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]) as MazeWall;
-		wall.Initialize(cell, otherCell, direction);
+
+	void WallGeneration (MazeCell cell, MazeCell otherCell, MazeDirection direction, int randomNumber1, int randomNumber2) {
+		MazeWall wall = Instantiate (wallSettings.wallPrefabs [randomNumber1]) as MazeWall;
+		wall.Initialize (cell, otherCell, direction);
 		if (otherCell == null) return;
-		wall = Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]) as MazeWall;
-		wall.Initialize(otherCell, cell, direction.GetOpposite());
+		wall = Instantiate (wallSettings.wallPrefabs [randomNumber2]) as MazeWall;
+		wall.Initialize (otherCell, cell, direction.GetOpposite ());
+	}
+
+	private void CreateWall (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
+		int randomNumber1, randomNumber2;
+		if (wallSettings.wallPropabilityAttributes.Count() != wallSettings.wallPrefabs.Count() || wallSettings.wallPropabilityAttributes.Sum() != 100) {
+			 randomNumber1 = Random.Range (0, wallSettings.wallPrefabs.Length);
+			 randomNumber2 = Random.Range (0, wallSettings.wallPrefabs.Length);
+		}
+		else {
+			 randomNumber1 = PropabiliesCalulations.GetRandomSelection (wallSettings.wallPropabilityAttributes);
+			 randomNumber2 = PropabiliesCalulations.GetRandomSelection (wallSettings.wallPropabilityAttributes);
+		}
+		WallGeneration (cell, otherCell, direction, randomNumber1, randomNumber2);
 	}
 
 	private int roomCounter = 0;
@@ -168,3 +193,5 @@ public class Maze : MonoBehaviour {
 
 	#endregion
 }
+	
+
