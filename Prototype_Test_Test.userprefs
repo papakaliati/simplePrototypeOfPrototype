@@ -1,15 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" GitUserInfo="UsingGIT" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Maze.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="Assets/Scripts/MazeCell.cs" Line="32" Column="92" />
-      <File FileName="Assets/Scripts/Maze.cs" Line="100" Column="2" />
-      <File FileName="Assets/Scripts/MazeRoom.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/IntVector2.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MazeCellEdge.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MazeDoor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MazeRoomSettings.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MazeWall.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MazeCell.cs" Line="29" Column="45" />
+      <File FileName="Assets/Scripts/Maze.cs" Line="8" Column="28" />
+      <File FileName="Assets/Scripts/PropabiliesCalulations.cs" Line="31" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
