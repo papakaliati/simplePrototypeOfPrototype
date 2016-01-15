@@ -26,10 +26,6 @@ public class Maze : MonoBehaviour {
 	[Range(0f, 1f)]
 	public float doorProbability;
 
-//	public MazeWall[] wallPrefabs;
-//	[Range(0, 100)]
-//	public int[] wallPropabilityAttributes ;
-
 	public WallSettings wallSettings;
 
 	public RoomDecoration[] roomDecorations;

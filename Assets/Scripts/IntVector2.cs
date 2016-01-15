@@ -30,9 +30,11 @@ public struct IntVector2 {
 		}
 	}
 
-//	public static bool operator Equals(IntVector2 obj)
-//	{
-//		return (x == obj.x
-//		&& z == obj.z);
-//	}
+	public override bool Equals(object a) {
+		throw new System.NotImplementedException ("Not Implemented yet!");
+	}
+
+	public override int GetHashCode() {
+		throw new System.NotImplementedException ("Not Implemented yet!");
+	}
 }
