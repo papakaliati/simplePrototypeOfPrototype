@@ -11,6 +11,10 @@ public class MazeDoor : MazePassage {
 
 	public Transform hinge;
 
+	public string DoorDescription;
+
+	public MazeRoom[] Rooms;
+
 	private bool isMirrored;
 
 	private bool isDoorOpen = false;

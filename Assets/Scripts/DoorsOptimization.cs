@@ -1,70 +1,60 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
-public class DoorsOptimization {
+public class DoorsOptimization : MonoBehaviour {
 
-	private Dictionary <MazeRoom, Dictionary< MazeCell, int>> roomMapping = 
-		new Dictionary<MazeRoom, Dictionary<MazeCell, int>>();
-
-	public DoorsOptimization(Dictionary <MazeRoom, Dictionary< MazeCell, int>> roomMapping) {
-		this.roomMapping = roomMapping;
+	public void OptimizeDoors (ref MazeCell[,] cells) {
+		var allDoors = GetAllDoors (cells);
+		var toKeep = GetDoorsToKeep (allDoors);
+		SortDoors (allDoors, toKeep);
 	}
 
-	private void CheckDoorsPerRoom() {
-		foreach (var item in roomMapping) {
-			var room = item.Key;
-			var pair = item.Value;
-			foreach (var element in pair) 
-				if (element.Value == 0) {
-					var cell = element.Key;
-					var door = CheckIfCellContainsDoors (cell);
-					if (door == null) continue;
-					room.DoorsList.Add (door);
-				}
-		}
-		PrintDoors ();
-		OptimizeDoors ();
+	private void SortDoors (List<MazeDoor> allDoors, List<MazeDoor> toKeep) {
+		foreach (MazeDoor door in allDoors)
+			if (!toKeep.Contains (door))
+				Destroy (door.gameObject);
 	}
 
-	private void OptimizeDoors() {
-		List<string> toRemove = new List<string>();
-
-		foreach (var item in doorMultiplication)
-			if (item.Value > 1)
-				toRemove.Add (item.Key);
-	}
-
-	private Dictionary<MazeCell, string> doorConnections = new Dictionary<MazeCell, string>();
-	private Dictionary<string, int> doorMultiplication = new Dictionary<string, int>();
-
-	private void PrintDoors() {
-		foreach (var item in roomMapping) {
-			var room = item.Key;
-			var pair = item.Value;
-			Debug.LogFormat ( " Size of Room : {0} Number of doors  : {1}", room.RoomSize, room.DoorsList.Count );
-			Debug.LogFormat (" Cell of Door : {0}", room.DoorsList [0].cell);
-			foreach (var door in room.DoorsList) {
-				Debug.LogFormat ( " Door : {0} Connecting Rooms : {1} - {2}", 
-					door.cell.name , door.cell.room.RoomId, door.otherCell.room.RoomId );
-
-				var connection = door.cell.room.RoomId.ToString() + door.otherCell.room.RoomId.ToString();
-
-				doorConnections.Add (door.cell, connection);
-
-				if (doorMultiplication.ContainsKey (connection))
-					++doorMultiplication [connection];
-				else
-					doorMultiplication.Add (connection, 0);
+	private List<MazeDoor> GetAllDoors (MazeCell[,] cells) {
+		var allDoors = new List<MazeDoor>(); 
+		foreach (var cell in cells) {
+			var doors = GetDoorsContainedAtCell (cell);
+			if (doors.Count () == 0) continue;
+			foreach (var door in doors) {
+				door.DoorDescription = door.cell.room + "-" + door.otherCell.room;
+				door.Rooms = new MazeRoom[] {
+					door.cell.room,
+					door.otherCell.room
+				};
+				allDoors.Add (door);
 			}
 		}
+		return allDoors;
 	}
 
-	private MazeDoor CheckIfCellContainsDoors(MazeCell cell) {
+
+	private List<MazeDoor> GetDoorsContainedAtCell(MazeCell cell) {
+		var doors = new List<MazeDoor> ();
 		foreach (var edge in cell.edges)
 			if (edge is MazeDoor)
-				return (MazeDoor)edge;
-		return null;
+				doors.Add ((MazeDoor)edge);
+		return doors;
 	}
 
+	private List<MazeDoor> GetDoorsToKeep (List<MazeDoor> allDoors){
+		Dictionary<string, MazeDoor> doorsToKeepDictionary = new Dictionary<string, MazeDoor> ();
+		foreach (var door in allDoors) {
+			if (doorsToKeepDictionary.ContainsKey (door.DoorDescription))
+				doorsToKeepDictionary [door.DoorDescription] = door;
+			else
+				doorsToKeepDictionary.Add (door.DoorDescription, door);
+		}
+		return doorsToKeepDictionary.Values.ToList();
+	}
+
+
+
 }
+

@@ -16,7 +16,8 @@ public class MazeComplexity  {
 		
 	//A room is considered available if it has size more than 10 cells
 	private List<MazeRoom> GetAvailableRoomsForObjectPlacement (List<MazeRoom> rooms) {
-		return rooms.OrderByDescending (x => x.RoomSize).Where (x => x.RoomSize > 10).ToList ();
+		//return rooms.OrderByDescending (x => x.RoomSize).Where (x => x.RoomSize > 10).ToList ();
+		return rooms;
 	}
 
 	private void CalculateMazeComplexity(List<MazeRoom> rooms){ 
