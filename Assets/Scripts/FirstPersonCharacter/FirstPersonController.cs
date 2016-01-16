@@ -57,10 +57,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
         }
 
-
+		private float maxDistance = 10f;
         // Update is called once per frame
-        private void Update()
-        {
+        private void Update()   {
+			RaycastHit Hit ;
+			if (Input.GetKeyDown (KeyCode.R)
+			    && Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out Hit, maxDistance)
+			    && Hit.collider.tag == "Door") {
+				var door = Hit.collider.GetComponent <MazeDoor> ();
+				if (door is MazeDoor)
+					((MazeDoor)door).DoorInterraction ();
+			}
+		
+
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)

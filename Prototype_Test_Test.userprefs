@@ -1,22 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" GitUserInfo="UsingGIT" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DoorsOptimization.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MazeDoor.cs">
     <Files>
-      <File FileName="Assets/Scripts/DoorsOptimization.cs" Line="16" Column="30" />
-      <File FileName="Assets/Scripts/Maze.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MazeComplexity.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MazeDoor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MazeCell.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MazeCellEdge.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MazeRoom.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Maze.cs" Line="74" Column="4" />
+      <File FileName="Assets/Scripts/DoorsOptimization.cs" Line="23" Column="5" />
+      <File FileName="Assets/Scripts/MazeComplexity.cs" Line="14" Column="34" />
+      <File FileName="Assets/Scripts/MazeDoor.cs" Line="40" Column="11" />
+      <File FileName="Assets/Scripts/MazeRoom.cs" Line="37" Column="1" />
+      <File FileName="Assets/Scripts/MazeCell.cs" Line="66" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/konstantinosgiannousis/Downloads/Prototype_Test_Test/Assets/Scripts/Maze.cs" line="67" column="1" />
-      <Breakpoint file="/Users/konstantinosgiannousis/Downloads/Prototype_Test_Test/Assets/Scripts/DoorsOptimization.cs" line="49" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

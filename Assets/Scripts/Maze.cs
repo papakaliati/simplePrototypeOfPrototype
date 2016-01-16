@@ -63,16 +63,37 @@ public class Maze : MonoBehaviour {
 		mazeComplexity = new MazeComplexity(rooms);
 
 		var doorsOptimization = new DoorsOptimization ();
-		doorsOptimization.OptimizeDoors (ref cells);
+		var doorsToBeRemoved = doorsOptimization.GetDoorsToBeRemoved (ref cells);
 
-		PrintRoomsAndRooms ();
+		SortDoors (doorsToBeRemoved);
+
+		PrintRoomsAndDoors ();
 	}
 
-	private void PrintRoomsAndRooms() { 
+	private void SortDoors (List<MazeDoor> doorsToRemove) {
+		foreach (MazeDoor door in doorsToRemove) {
+			door.DoorDescription = Helpers.kDeletedDoorDescription;
+
+			var edge = door.otherCell.GetEdge ( MazeDirections.GetOpposite(door.direction));
+			if (edge is MazeDoor) {
+				if (((MazeDoor)edge).DoorDescription == Helpers.kDeletedDoorDescription)
+					CreateWall (door.cell, null, door.direction);
+			}
+				
+
+			door.cell.room.DoorsList.Remove (door);
+			Destroy (door.gameObject);
+			Destroy (door);
+		}
+	}
+
+
+
+	private void PrintRoomsAndDoors() { 
 		var text = new System.Text.StringBuilder ();
 		foreach (var room in rooms) {
 			
-			text.AppendLine (string.Format(" Room : {0}, size : {1}, Door Number :  ", room.RoomId, room.Size, room.DoorsList.Count ()));
+			text.AppendLine (string.Format(" Room : {0}, size : {1}, Door Number : {2}", room.RoomId, room.Size, room.DoorsList.Count ()));
 		//	Debug.LogFormat( " Room : {0}, size : {1}, Door Number :  ",room.RoomId, room.Size, room.DoorsList.Count());
 			foreach (var door in room.DoorsList) {
 				text.AppendLine (string.Format(" Door Name : {0}, cell : {1}",door.DoorDescription, door.cell.name));

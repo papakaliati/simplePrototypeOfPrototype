@@ -5,22 +5,18 @@ using System.Linq;
 
 public class DoorsOptimization : MonoBehaviour {
 	
-	private static string _deleted = "deleted";
-
-	public void OptimizeDoors (ref MazeCell[,] cells) {
+	public List<MazeDoor> GetDoorsToBeRemoved (ref MazeCell[,] cells) {
 		var allDoors = GetAllDoors (cells);
 		var toKeep = GetDoorsToKeep (allDoors);
-		SortDoors (allDoors, toKeep);
+		return DoorsToRemove (allDoors, toKeep);
 	}
 
-	private void SortDoors (List<MazeDoor> allDoors, List<MazeDoor> toKeep) {
+	private List<MazeDoor> DoorsToRemove (List<MazeDoor> allDoors, List<MazeDoor> toKeep) {
+		var doorsToRemove = new List<MazeDoor> ();
 		foreach (MazeDoor door in allDoors)
-			if (!toKeep.Contains (door)) {
-				door.DoorDescription = _deleted;
-				door.cell.room.DoorsList.Remove (door);
-				Destroy (door.gameObject);
-				Destroy (door);
-			}
+			if (!toKeep.Contains (door))
+				doorsToRemove.Add (door);
+		return doorsToRemove;
 	}
 
 	private List<MazeDoor> GetAllDoors (MazeCell[,] cells) {
@@ -29,9 +25,9 @@ public class DoorsOptimization : MonoBehaviour {
 			var doors = GetDoorsContainedAtCell (cell);
 			if (doors.Count () == 0 ) continue;
 			foreach (var door in doors) {
-				if (door.DoorDescription == _deleted) continue;
-				if (string.IsNullOrEmpty(door.DoorDescription))
-					door.DoorDescription = door.cell.room.RoomId + "-" + door.otherCell.room.RoomId;
+				if (door.DoorDescription == Helpers.kDeletedDoorDescription) continue;
+				if (string.IsNullOrEmpty (door.DoorDescription))
+					door.DoorDescription = CreateRoomName (door.cell.room.RoomId, door.otherCell.room.RoomId);
 				door.cell.room.DoorsList.Add (door);
 				door.Rooms = new MazeRoom[] {
 					door.cell.room,
@@ -41,6 +37,12 @@ public class DoorsOptimization : MonoBehaviour {
 			}
 		}
 		return allDoors;
+	}
+
+	private string CreateRoomName (int roomA, int roomB) {
+		return (roomA > roomB) 
+			? roomA + "-" + roomB 
+			: roomB + "-" + roomA;
 	}
 
 

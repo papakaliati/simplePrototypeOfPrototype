@@ -28,9 +28,9 @@ public class MazeDoor : MazePassage {
 
 	private void OnTriggerStay() {
 
-		if (Input.GetKeyDown(KeyCode.R)) {
-			DoorInterraction();
-		}
+//		if (Input.GetKeyDown(KeyCode.R)) {
+//			DoorInterraction();
+//		}
 
 	}
 		

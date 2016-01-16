@@ -46,7 +46,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\DoorsOptimization.cs" />
+     <Compile Include="Assets\Scripts\FirstPersonCharacter\FirstPersonController.cs" />
+     <Compile Include="Assets\Scripts\FirstPersonCharacter\HeadBob.cs" />
+     <Compile Include="Assets\Scripts\FirstPersonCharacter\MouseLook.cs" />
+     <Compile Include="Assets\Scripts\FirstPersonCharacter\RigidbodyFirstPersonController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Helpers.cs" />
      <Compile Include="Assets\Scripts\IntVector2.cs" />
      <Compile Include="Assets\Scripts\Maze.cs" />
      <Compile Include="Assets\Scripts\MazeCell.cs" />
