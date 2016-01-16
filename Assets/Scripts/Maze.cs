@@ -62,9 +62,24 @@ public class Maze : MonoBehaviour {
 		//	rooms[i].Hide();
 		mazeComplexity = new MazeComplexity(rooms);
 
-
 		var doorsOptimization = new DoorsOptimization ();
 		doorsOptimization.OptimizeDoors (ref cells);
+
+		PrintRoomsAndRooms ();
+	}
+
+	private void PrintRoomsAndRooms() { 
+		var text = new System.Text.StringBuilder ();
+		foreach (var room in rooms) {
+			
+			text.AppendLine (string.Format(" Room : {0}, size : {1}, Door Number :  ", room.RoomId, room.Size, room.DoorsList.Count ()));
+		//	Debug.LogFormat( " Room : {0}, size : {1}, Door Number :  ",room.RoomId, room.Size, room.DoorsList.Count());
+			foreach (var door in room.DoorsList) {
+				text.AppendLine (string.Format(" Door Name : {0}, cell : {1}",door.DoorDescription, door.cell.name));
+				//	Debug.LogFormat( " Door Name : {0}, ",door.DoorDescription);
+			}
+		}
+		Debug.Log (text);
 	}
 		
 	#region Private Methods

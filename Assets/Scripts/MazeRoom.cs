@@ -7,7 +7,7 @@ public class MazeRoom : ScriptableObject {
 
 	public MazeRoomSettings settings;
 
-	public int RoomSize;
+	public int Size;
 
 	public List<MazeDoor> DoorsList = new List<MazeDoor>();
 
@@ -18,7 +18,7 @@ public class MazeRoom : ScriptableObject {
 	public void Add (MazeCell cell) {
 		cell.room = this;
 		cells.Add(cell);
-		RoomSize++;
+		Size++;
 	}
 
 	public void Assimilate (MazeRoom room) {

@@ -29,7 +29,7 @@ public class MazeComplexity  {
 
 	private void FilterDictionaries () {
 		foreach (var pair in roomMapping) {
-			Debug.LogFormat (" RoomID : {0} RoomSize  : {1}", pair.Key.RoomId, pair.Key.RoomSize); 
+			Debug.LogFormat (" RoomID : {0} RoomSize  : {1}", pair.Key.RoomId, pair.Key.Size); 
 			foreach (var pairy in pair.Value)
 				if (pairy.Value > 0) {
 					Debug.LogFormat ("The Cell : {0} has complexity : {1}", pairy.Key.name, pairy.Value); 
