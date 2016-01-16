@@ -58,15 +58,12 @@ public class Maze : MonoBehaviour {
 		DoFirstGenerationStep(activeCells);
 		while (activeCells.Count > 0) 
 			DoNextGenerationStep(activeCells);	
-		//	for (int i = 0; i < rooms.Count; i++) 
-		//	rooms[i].Hide();
 		mazeComplexity = new MazeComplexity(rooms);
 
 		var doorsOptimization = new DoorsOptimization ();
-		var doorsToBeRemoved = doorsOptimization.GetDoorsToBeRemoved (ref cells);
-
+		var doorsToBeRemoved = doorsOptimization.CalculateRemovableDoors (ref cells);
 		SortDoors (doorsToBeRemoved);
-
+		// For Testing Only
 		PrintRoomsAndDoors ();
 	}
 
@@ -79,8 +76,6 @@ public class Maze : MonoBehaviour {
 				if (((MazeDoor)edge).DoorDescription == Helpers.kDeletedDoorDescription)
 					CreateWall (door.cell, null, door.direction);
 			}
-				
-
 			door.cell.room.DoorsList.Remove (door);
 			Destroy (door.gameObject);
 			Destroy (door);
@@ -91,20 +86,16 @@ public class Maze : MonoBehaviour {
 
 	private void PrintRoomsAndDoors() { 
 		var text = new System.Text.StringBuilder ();
-		foreach (var room in rooms) {
-			
+		foreach (var room in rooms) {			
 			text.AppendLine (string.Format(" Room : {0}, size : {1}, Door Number : {2}", room.RoomId, room.Size, room.DoorsList.Count ()));
-		//	Debug.LogFormat( " Room : {0}, size : {1}, Door Number :  ",room.RoomId, room.Size, room.DoorsList.Count());
 			foreach (var door in room.DoorsList) {
 				text.AppendLine (string.Format(" Door Name : {0}, cell : {1}",door.DoorDescription, door.cell.name));
-				//	Debug.LogFormat( " Door Name : {0}, ",door.DoorDescription);
 			}
 		}
 		Debug.Log (text);
 	}
 		
 	#region Private Methods
-
 		
 	private enum RoomType {
 		DifferentRoom,
@@ -194,24 +185,31 @@ public class Maze : MonoBehaviour {
 		Destroy (roomToAssimilate);
 	}
 
-	public void WallGeneration (MazeCell cell, MazeCell otherCell, MazeDirection direction, int randomNumber1, int randomNumber2) {
-		MazeWall wall = Instantiate (wallSettings.wallPrefabs [randomNumber1]) as MazeWall;
+	public void WallGeneration (MazeCell cell, MazeCell otherCell, MazeDirection direction, int[] randomNumbers) {
+		MazeWall wall = Instantiate (wallSettings.wallPrefabs [randomNumbers[0]]) as MazeWall;
 		wall.Initialize (cell, otherCell, direction);
 		if (otherCell == null) return;
-		wall = Instantiate (wallSettings.wallPrefabs [randomNumber2]) as MazeWall;
+		wall = Instantiate (wallSettings.wallPrefabs [randomNumbers[1]]) as MazeWall;
 		wall.Initialize (otherCell, cell, direction.GetOpposite ());
 	}
 
-	private void CreateWall (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
+	private int[] GetRandomNumberForWallPrefab () {
 		int randomNumber1, randomNumber2;
-		if (wallSettings.wallPropabilityAttributes.Count () != wallSettings.wallPrefabs.Count () || wallSettings.wallPropabilityAttributes.Sum () != 100) {
+		if (wallSettings.wallPropabilityAttributes.Count () != wallSettings.wallPrefabs.Count () 
+			|| wallSettings.wallPropabilityAttributes.Sum () != 100) {
 			randomNumber1 = Random.Range (0, wallSettings.wallPrefabs.Length);
 			randomNumber2 = Random.Range (0, wallSettings.wallPrefabs.Length);
-		} else {
+		}
+		else {
 			randomNumber1 = PropabiliesCalulations<int>.GetRandomSelection (wallSettings.wallPropabilityAttributes);
 			randomNumber2 = PropabiliesCalulations<int>.GetRandomSelection (wallSettings.wallPropabilityAttributes);
 		}
-		WallGeneration (cell, otherCell, direction, randomNumber1, randomNumber2);
+		return new int[] {randomNumber1, randomNumber2};
+	}
+
+	private void CreateWall (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
+		var randomNumbers = GetRandomNumberForWallPrefab ();
+		WallGeneration (cell, otherCell, direction, randomNumbers);
 	}
 
 	private int roomCounter = 0;

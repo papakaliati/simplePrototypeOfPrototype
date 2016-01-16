@@ -5,9 +5,9 @@ using System.Linq;
 
 public class MazeComplexity  {
 	
-	public Dictionary <MazeRoom, Dictionary< MazeCell, int>> AcceptableLocationsDictionary = 
+	public Dictionary <MazeRoom, Dictionary< MazeCell, int>> AcceptablePlacementLocations = 
 		new Dictionary<MazeRoom, Dictionary<MazeCell, int>>();
-	public Dictionary <MazeRoom, Dictionary< MazeCell, int>> roomMapping = 
+	public Dictionary <MazeRoom, Dictionary< MazeCell, int>> MazeMapping = 
 		new Dictionary<MazeRoom, Dictionary<MazeCell, int>>();
 
 	public MazeComplexity(List<MazeRoom> maze ) {
@@ -28,27 +28,28 @@ public class MazeComplexity  {
 	}
 
 	private void FilterDictionaries () {
-		foreach (var pair in roomMapping) {
+		foreach (var pair in MazeMapping) {
 			Debug.LogFormat (" RoomID : {0} RoomSize  : {1}", pair.Key.RoomId, pair.Key.Size); 
 			foreach (var pairy in pair.Value)
 				if (pairy.Value > 0) {
 					Debug.LogFormat ("The Cell : {0} has complexity : {1}", pairy.Key.name, pairy.Value); 
-					SaveComplexityToDictionary (pairy.Key, pair.Key, pairy.Value, AcceptableLocationsDictionary); 
+					SaveComplexityToDictionary (pairy.Key, pair.Key, pairy.Value, AcceptablePlacementLocations); 
 				}
 		}
 	}
 
-	private void CalculateRoomComplexity(MazeRoom room) {
+	private void CalculateRoomComplexity (MazeRoom room) {
 		foreach (var cell in room.cells)
 			CalculateCellComplexity (cell, room);
-	} 
-
-	private void CalculateCellComplexity(MazeCell cell, MazeRoom room) {
-		var complexity = GetCellComplexity (cell, room);
-		SaveComplexityToDictionary (cell, room, complexity, roomMapping);
 	}
 
-	private void SaveComplexityToDictionary (MazeCell cell, MazeRoom room, int complexity, Dictionary <MazeRoom, Dictionary< MazeCell, int>> dictionary){
+	private void CalculateCellComplexity (MazeCell cell, MazeRoom room) {
+		var complexity = GetCellComplexity (cell, room);
+		SaveComplexityToDictionary (cell, room, complexity, MazeMapping);
+	}
+
+	private void SaveComplexityToDictionary (MazeCell cell, MazeRoom room,int complexity,
+											Dictionary <MazeRoom, Dictionary< MazeCell, int>> dictionary) {
 		if (!dictionary.ContainsKey (room)) {
 			var tempDick = new Dictionary<MazeCell,int> () { { cell, 0 } };
 			dictionary.Add (room, tempDick);

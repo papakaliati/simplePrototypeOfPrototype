@@ -9,10 +9,10 @@ public class PropabiliesCalulations <T> {
 		List<ItemType> items = new List<ItemType> ();
 		for (var i = 0; i < attributionRates.Count (); i++)
 			items.Add (new ItemType (i, attributionRates [i]));
-		return RandomSelect (items);
+		return SelectRandomItem (items);
 	}
 
-	private static int RandomSelect (List<ItemType> cards) {
+	private static int SelectRandomItem (List<ItemType> cards) {
 		var deck = new List<ItemType>();
 		cards.ForEach (c => {
 			for (int i = 0; i < System.Convert.ToInt32(c.AttributionRate); i++)
@@ -23,6 +23,7 @@ public class PropabiliesCalulations <T> {
 	}
 
 	public class ItemType {
+		
 		public int Id { private set; get;}
 		public T AttributionRate { private set; get; }
 
