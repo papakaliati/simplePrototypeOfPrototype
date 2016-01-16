@@ -25,45 +25,35 @@ public class MazeDoor : MazePassage {
 		}
 	}
 
-	private bool hasTriggerBeenUsed = false; // This is to make sure that the button is not repeatedly pressed.
-	private bool setTrigger = false;
 
 	private void OnTriggerStay() {
-		if (hasTriggerBeenUsed)
-			return;
 
-		if (Input.GetKeyDown(KeyCode.R) && !hasTriggerBeenUsed) {
-			DoorInterraction(true);
-			setTrigger = true;
+		if (Input.GetKeyDown(KeyCode.R)) {
+			DoorInterraction();
 		}
-		else if (Input.GetKeyDown(KeyCode.R) && !hasTriggerBeenUsed) {
-			DoorInterraction(true);
-			setTrigger = true;
-		}
-		if (setTrigger) { hasTriggerBeenUsed = true; }
+
 	}
 		
-	public void DoorInterraction (bool canOpenDoor) {
-		if (!canOpenDoor) return;
-
-		if (isDoorOpen && canOpenDoor) {
+	public void DoorInterraction () {
+		if (isDoorOpen) {
 			CloseDoor ();
 			return;
 		}
-		if (!isDoorOpen)
-			isDoorOpen = true;
+		if (!isDoorOpen) isDoorOpen = true;
 
-		OtherSideOfDoor.isDoorOpen = true;
-
-		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
-		OtherSideOfDoor.cell.room.Show();
+		hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
+//		OtherSideOfDoor.isDoorOpen = true;
+//		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
+//		OtherSideOfDoor.cell.room.Show();
 	}
 
 	private void CloseDoor() {
-		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
-		OtherSideOfDoor.cell.room.Hide();
+		hinge.localRotation = hinge.localRotation = Quaternion.identity;
 		isDoorOpen = false;
-		OtherSideOfDoor.isDoorOpen = false;
+
+//		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
+//		OtherSideOfDoor.cell.room.Hide();
+//		OtherSideOfDoor.isDoorOpen = false;
 	}
 
 	public override void Initialize (MazeCell primary, MazeCell other, MazeDirection direction) {
