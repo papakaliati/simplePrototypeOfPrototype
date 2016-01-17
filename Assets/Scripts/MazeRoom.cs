@@ -15,6 +15,8 @@ public class MazeRoom : ScriptableObject {
 
 	public List<MazeCell> cells = new List<MazeCell>();
 
+	public Dictionary<MazeCell, int> CellComplexity = new Dictionary<MazeCell, int> (); 
+
 	public void Add (MazeCell cell) {
 		cell.room = this;
 		cells.Add(cell);

@@ -32,6 +32,7 @@ public class MazeComplexity  {
 		foreach (var pair in MazeMapping) {
 			text.AppendLine (string.Format (" RoomID : {0} RoomSize  : {1}", pair.Key.RoomId, pair.Key.Size)); 
 			foreach (var pairy in pair.Value) {
+				pair.Key.CellComplexity.Add (pairy.Key, pairy.Value);
 				text.AppendLine (string.Format ("The Cell : {0} has complexity : {1}", pairy.Key.name, pairy.Value)); 
 				SaveComplexityToDictionary (pairy.Key, pair.Key, pairy.Value, AcceptablePlacementLocations); 
 			}

@@ -63,8 +63,11 @@ public class Maze : MonoBehaviour {
 		var doorsOptimization = new DoorsOptimization ();
 		var doorsToBeRemoved = doorsOptimization.CalculateRemovableDoors (ref cells);
 		SortDoors (doorsToBeRemoved);
+		CreateRoomsToDoors ();
+
 		// For Testing Only
 		PrintRoomsAndDoors ();
+		//PrintRoomsAndDoors2 ();
 	}
 
 	private void SortDoors (List<MazeDoor> doorsToRemove) {
@@ -81,19 +84,62 @@ public class Maze : MonoBehaviour {
 			Destroy (door);
 		}
 	}
-
-
-
+		
 	private void PrintRoomsAndDoors() { 
 		var text = new System.Text.StringBuilder ();
 		foreach (var room in rooms) {			
 			text.AppendLine (string.Format(" Room : {0}, size : {1}, Door Number : {2}", room.RoomId, room.Size, room.DoorsList.Count ()));
-			foreach (var door in room.DoorsList) {
+			foreach (var door in room.DoorsList) 
 				text.AppendLine (string.Format(" Door Name : {0}, cell : {1}",door.DoorDescription, door.cell.name));
-			}
 		}
 		Debug.Log (text);
 	}
+		
+	/*
+	private void PrintRoomsAndDoors2() { 
+		var text = new System.Text.StringBuilder ();
+		foreach (var pair in RoomsToDoors) {	
+			var room = pair.Key;
+			text.AppendLine (string.Format(" Room : {0}, size : {1}, Door Number : {2}", room.RoomId, room.Size, room.DoorsList.Count ()));
+			foreach (var door in pair.Value) 
+				text.AppendLine (string.Format(" Door Name : {0}, cell : {1}", door.DoorDescription, door.cell.name));
+		}
+		Debug.Log (text);
+	}
+
+	private Dictionary<MazeRoom, List<MazeDoor>> RoomsToDoors = new Dictionary<MazeRoom, List<MazeDoor>>();
+	*/
+
+	private void CreateRoomsToDoors () {
+		Dictionary<MazeRoom, List<MazeDoor>> RoomsToDoors = new Dictionary<MazeRoom, List<MazeDoor>>();
+		var doors = new List<MazeDoor> ();
+		foreach (var room in rooms) {
+			RoomsToDoors.Add (room, new List<MazeDoor> ());
+			foreach (var door in room.DoorsList)
+				doors.Add (door);
+		}
+
+		//Reset Doors list in order to be recreated
+		foreach (var room in rooms)
+			room.DoorsList = new List<MazeDoor> ();
+				
+		foreach (var door in doors) {
+			var roomIds = GetRoomsFromDoorDescription (door.DoorDescription);
+			var foundRooms = RoomsToDoors.Keys.Where (x => roomIds.Contains (x.RoomId)).ToList ();
+			foreach (var element in foundRooms) {
+				element.DoorsList.Add (door);
+			//	RoomsToDoors [element].Add (door);
+			}
+		}
+	}
+		
+
+	private int[] GetRoomsFromDoorDescription(string doorDescription) {
+		char[] delimiters = new char[] { '-'};
+		var ids =  doorDescription.Split (delimiters).Select (x => System.Convert.ToInt32 (x)).ToArray ();
+		return ids;
+	}
+
 		
 	#region Private Methods
 		
