@@ -28,14 +28,15 @@ public class MazeComplexity  {
 	}
 
 	private void FilterDictionaries () {
+		var text = new System.Text.StringBuilder ();
 		foreach (var pair in MazeMapping) {
-			Debug.LogFormat (" RoomID : {0} RoomSize  : {1}", pair.Key.RoomId, pair.Key.Size); 
-			foreach (var pairy in pair.Value)
-				if (pairy.Value > 0) {
-					Debug.LogFormat ("The Cell : {0} has complexity : {1}", pairy.Key.name, pairy.Value); 
-					SaveComplexityToDictionary (pairy.Key, pair.Key, pairy.Value, AcceptablePlacementLocations); 
-				}
+			text.AppendLine (string.Format (" RoomID : {0} RoomSize  : {1}", pair.Key.RoomId, pair.Key.Size)); 
+			foreach (var pairy in pair.Value) {
+				text.AppendLine (string.Format ("The Cell : {0} has complexity : {1}", pairy.Key.name, pairy.Value)); 
+				SaveComplexityToDictionary (pairy.Key, pair.Key, pairy.Value, AcceptablePlacementLocations); 
+			}
 		}
+		Debug.Log (text);
 	}
 
 	private void CalculateRoomComplexity (MazeRoom room) {
