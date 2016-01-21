@@ -67,7 +67,6 @@ public class Maze : MonoBehaviour {
 
 		// For Testing Only
 		PrintRoomsAndDoors ();
-		//PrintRoomsAndDoors2 ();
 	}
 
 	private void SortDoors (List<MazeDoor> doorsToRemove) {
@@ -77,9 +76,13 @@ public class Maze : MonoBehaviour {
 			var edge = door.otherCell.GetEdge ( MazeDirections.GetOpposite(door.direction));
 			if (edge is MazeDoor) {
 				if (((MazeDoor)edge).DoorDescription == Helpers.kDeletedDoorDescription)
-					CreateWall (door.cell, null, door.direction);
+					CreateWall (door.cell, door.otherCell, door.direction);
 			}
+
 			door.cell.room.DoorsList.Remove (door);
+			Destroy (door.gameObject);
+
+
 			Destroy (door.gameObject);
 			Destroy (door);
 		}
@@ -94,21 +97,6 @@ public class Maze : MonoBehaviour {
 		}
 		Debug.Log (text);
 	}
-		
-	/*
-	private void PrintRoomsAndDoors2() { 
-		var text = new System.Text.StringBuilder ();
-		foreach (var pair in RoomsToDoors) {	
-			var room = pair.Key;
-			text.AppendLine (string.Format(" Room : {0}, size : {1}, Door Number : {2}", room.RoomId, room.Size, room.DoorsList.Count ()));
-			foreach (var door in pair.Value) 
-				text.AppendLine (string.Format(" Door Name : {0}, cell : {1}", door.DoorDescription, door.cell.name));
-		}
-		Debug.Log (text);
-	}
-
-	private Dictionary<MazeRoom, List<MazeDoor>> RoomsToDoors = new Dictionary<MazeRoom, List<MazeDoor>>();
-	*/
 
 	private void CreateRoomsToDoors () {
 		Dictionary<MazeRoom, List<MazeDoor>> RoomsToDoors = new Dictionary<MazeRoom, List<MazeDoor>>();
@@ -139,7 +127,6 @@ public class Maze : MonoBehaviour {
 		var ids =  doorDescription.Split (delimiters).Select (x => System.Convert.ToInt32 (x)).ToArray ();
 		return ids;
 	}
-
 		
 	#region Private Methods
 		
@@ -272,5 +259,3 @@ public class Maze : MonoBehaviour {
 
 	#endregion
 }
-	
-
