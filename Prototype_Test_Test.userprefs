@@ -1,14 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" GitUserInfo="UsingGIT" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RoomDeco/BlueCube.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="Assets/Scripts/GameManager.cs" Line="28" Column="3" />
-      <File FileName="Assets/Scripts/MazeDoor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MazePassage.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Maze.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MazeComplexity.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MazeRoom.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/DoorsOptimization.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PropabiliesCalulations.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/RoomDeco/RedCube.cs" Line="4" Column="38" />
-      <File FileName="Assets/Scripts/RoomDeco/BlueCube.cs" Line="7" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
