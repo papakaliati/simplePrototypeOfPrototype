@@ -5,6 +5,11 @@ using System.Linq;
 
 public class PropabiliesCalulations <T> {
 
+	/// <summary>
+	/// Gets the random selection provided the the possibilies.
+	/// </summary>
+	/// <returns>The random selection.</returns>
+	/// <param name="attributionRates">Attribution rates.</param>
 	public static int GetRandomSelection (T[] attributionRates) {
 		List<ItemType> items = new List<ItemType> ();
 		for (var i = 0; i < attributionRates.Count (); i++)

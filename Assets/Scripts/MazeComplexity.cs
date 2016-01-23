@@ -5,8 +5,17 @@ using System.Linq;
 
 public class MazeComplexity  {
 	
+	/// <summary>
+	/// The acceptable placement locations.
+	/// MazeRoom ( Mazecell, complexity) 
+	/// Should have compleyxity > 0 to make certain it is surrounded by 8 free blocks 
+	/// </summary>
 	public Dictionary <MazeRoom, Dictionary< MazeCell, int>> AcceptablePlacementLocations = 
 		new Dictionary<MazeRoom, Dictionary<MazeCell, int>>();
+	/// <summary>
+	/// The maze mapping.
+	/// MazeRoom ( Mazecell, complexity) 
+	/// </summary>
 	public Dictionary <MazeRoom, Dictionary< MazeCell, int>> MazeMapping = 
 		new Dictionary<MazeRoom, Dictionary<MazeCell, int>>();
 
@@ -14,7 +23,6 @@ public class MazeComplexity  {
 		CalculateMazeComplexity (maze);
 	}
 		
-	//A room is considered available if it has size more than 10 cells
 	private List<MazeRoom> GetAvailableRoomsForObjectPlacement (List<MazeRoom> rooms) {
 		//return rooms.OrderByDescending (x => x.RoomSize).Where (x => x.RoomSize > 10).ToList ();
 		return rooms;

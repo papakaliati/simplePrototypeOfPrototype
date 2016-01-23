@@ -4,7 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class DoorsOptimization  {
-	
+
+	/// <summary>
+	/// Calculates the removable doors.
+	/// </summary>
+	/// <returns>The removable doors.</returns>
+	/// <param name="cells">Cells.</param>
 	public List<MazeDoor> CalculateRemovableDoors (ref MazeCell[,] cells) {
 		var allDoors = ExtractDoors (cells);
 		var toKeep = ExtractEssentialDoors (allDoors);
