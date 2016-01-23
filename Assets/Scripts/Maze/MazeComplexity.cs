@@ -33,12 +33,14 @@ public class MazeComplexity  {
 
 	private int GetCellComplexity(MazeCell cell, MazeRoom room) {
 		int complexity = 0;
+		int counter = 0;
 		bool edgeReached = false;
 
 		while (!edgeReached) {
-			var neighborhoodCells = MazeCell.GetNeighborhoodCells (cell, room, complexity);
+			var neighborhoodCells = MazeCell.GetNeighborhoodCells (cell, room, counter++);
 			complexity += neighborhoodCells.Count;
-			if (neighborhoodCells.Count < 8) edgeReached = true;	
+			if (neighborhoodCells.Count < 8) 
+				edgeReached = true;	
 		}
 		return complexity;
 	}

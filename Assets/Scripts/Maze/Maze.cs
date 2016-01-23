@@ -60,13 +60,15 @@ public class Maze : MonoBehaviour {
 			DoNextGenerationStep(activeCells);	
 		
 		MazeOptimization ();
+		var k = new PlaySelections (rooms);
+
 	}
 
 	private void MazeOptimization () {
 		mazeComplexity = new MazeComplexity (rooms);
 		var doorsOptimization = new DoorsOptimization ();
 		var doorsToBeRemoved = doorsOptimization.CalculateRemovableDoors (ref cells);
-		ExtraDoorRemoval (doorsToBeRemoved);
+		RemoveExtraDoors (doorsToBeRemoved);
 		CreateDoorList ();
 		// For Testing Only
 		PrintRoomsAndDoors ();
@@ -76,7 +78,7 @@ public class Maze : MonoBehaviour {
 	/// Removes the extra doors and closes the gap wall on its place
 	/// </summary>
 	/// <param name="doorsToRemove">Doors to remove.</param>
-	private void ExtraDoorRemoval (List<MazeDoor> doorsToRemove) {
+	private void RemoveExtraDoors (List<MazeDoor> doorsToRemove) {
 		foreach (MazeDoor door in doorsToRemove) {
 			door.DoorDescription = Helpers.kDeletedDoorDescription;
 
