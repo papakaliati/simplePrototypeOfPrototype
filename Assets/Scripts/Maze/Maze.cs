@@ -58,12 +58,16 @@ public class Maze : MonoBehaviour {
 		DoFirstGenerationStep(activeCells);
 		while (activeCells.Count > 0) 
 			DoNextGenerationStep(activeCells);	
-		mazeComplexity = new MazeComplexity(rooms);
+		
+		MazeOptimization ();
+	}
 
+	private void MazeOptimization () {
+		mazeComplexity = new MazeComplexity (rooms);
 		var doorsOptimization = new DoorsOptimization ();
 		var doorsToBeRemoved = doorsOptimization.CalculateRemovableDoors (ref cells);
 		ExtraDoorRemoval (doorsToBeRemoved);
-		CreateRoomsToDoors ();
+		CreateDoorList ();
 		// For Testing Only
 		PrintRoomsAndDoors ();
 	}
@@ -93,12 +97,16 @@ public class Maze : MonoBehaviour {
 		foreach (var room in rooms) {			
 			text.AppendLine (string.Format(" Room : {0}, size : {1}, Door Number : {2}", room.RoomId, room.Size, room.DoorsList.Count ()));
 			foreach (var door in room.DoorsList) 
-				text.AppendLine (string.Format(" Door Name : {0}, cell : {1}",door.DoorDescription, door.cell.name));
+				text.AppendLine (string.Format(" Door Name : {0}, cell : {1}, complexity : {2}",
+					door.DoorDescription, door.cell.name, door.cell.Complexity));
 		}
 		Debug.Log (text);
 	}
 
-	private void CreateRoomsToDoors () {
+	/// <summary>
+	/// Creates the door list for each room
+	/// </summary>
+	private void CreateDoorList () {
 		Dictionary<MazeRoom, List<MazeDoor>> RoomsToDoors = new Dictionary<MazeRoom, List<MazeDoor>>();
 		var doors = new List<MazeDoor> ();
 		foreach (var room in rooms) {
@@ -116,14 +124,13 @@ public class Maze : MonoBehaviour {
 			var foundRooms = RoomsToDoors.Keys.Where (x => roomIds.Contains (x.RoomId)).ToList ();
 			foreach (var element in foundRooms) {
 				element.DoorsList.Add (door);
-			//	RoomsToDoors [element].Add (door);
 			}
 		}
 	}
 		
 
 	private int[] GetRoomsFromDoorDescription(string doorDescription) {
-		char[] delimiters = new char[] { '-'};
+		char[] delimiters = new char[] {'-'};
 		var ids =  doorDescription.Split (delimiters).Select (x => System.Convert.ToInt32 (x)).ToArray ();
 		return ids;
 	}

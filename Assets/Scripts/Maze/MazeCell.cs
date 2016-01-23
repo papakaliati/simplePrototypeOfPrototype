@@ -13,6 +13,8 @@ public class MazeCell : MonoBehaviour {
 
 	public int WallCount { private set; get;}
 
+	public int Complexity;
+
 	public bool IsFullyInitialized {
 		get {
 			return initializedEdgeCount == MazeDirections.Count;
