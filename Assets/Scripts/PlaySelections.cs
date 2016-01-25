@@ -2,15 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlaySelections : MonoBehaviour {
+public class PlaySelection {
 
 	private List<MazeRoom> rooms;
 
-	public PlaySelections(List<MazeRoom> rooms){
+	public PlaySelection(List<MazeRoom> rooms){
 		this.rooms = rooms;
 		SortRooms ();
 		SelectStartingRoom ();
-
 	}
 
 	private void SortRooms () {

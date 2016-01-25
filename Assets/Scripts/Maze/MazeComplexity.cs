@@ -23,21 +23,21 @@ public class MazeComplexity  {
 
 	private void CalculateRoomComplexity (MazeRoom room) {
 		foreach (var cell in room.cells)
-			CalculateCellComplexity (cell, room);
+			CalculateCellComplexity (cell);
 	}
 
-	private void CalculateCellComplexity (MazeCell cell, MazeRoom room) {
-		var complexity = GetCellComplexity (cell, room);
+	private void CalculateCellComplexity (MazeCell cell) {
+		var complexity = GetCellComplexity (cell);
 		cell.Complexity = complexity;
 	}
 
-	private int GetCellComplexity(MazeCell cell, MazeRoom room) {
+	private int GetCellComplexity(MazeCell cell) {
 		int complexity = 0;
 		int counter = 0;
 		bool edgeReached = false;
 
 		while (!edgeReached) {
-			var neighborhoodCells = MazeCell.GetNeighborhoodCells (cell, room, counter++);
+			var neighborhoodCells = MazeCell.GetNeighborhoodCells (cell, counter++);
 			complexity += neighborhoodCells.Count;
 			if (neighborhoodCells.Count < 8) 
 				edgeReached = true;	

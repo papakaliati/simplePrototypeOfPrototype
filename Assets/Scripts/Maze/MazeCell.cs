@@ -31,22 +31,20 @@ public class MazeCell : MonoBehaviour {
 		throw new System.InvalidOperationException ("Something is Off");
 	}
 
-	public static List<MazeCell> GetNeighborhoodCells(MazeCell cell, MazeRoom room, int factor) {
+	public static List<MazeCell> GetNeighborhoodCells(MazeCell cell, int factor) {
 		List<MazeCell> cells = new List<MazeCell>();
-
 		foreach (IntVector2 vectors in MazeDirections.vectorsAllDirections) {
 			IntVector2 tempVector = new IntVector2(0,0);
 			for (int k = 0; k < factor+1; ++k)
 				tempVector += vectors ;
 			IntVector2 coordinates = cell.coordinates + tempVector;
-
-			var celly = room.cells.Find (x => x.coordinates == coordinates);
+			var celly = cell.room.cells.Find (x => x.coordinates == coordinates);
 			if (celly != null)
 				cells.Add (celly);
 		}
 		return cells;
 	}
-
+			
 	public void Initialize (MazeRoom room) {
 		room.Add(this);
 		transform.GetChild(0).GetComponent<Renderer>().material = room.settings.floorMaterial;

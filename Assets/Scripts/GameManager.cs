@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour {
 
 
 	public void RestartGame () {
+		Destroy (mazeInstance.gameObject);
+		Destroy (mazeInstance);
+		Debug.ClearDeveloperConsole ();
 		BeginGame();
 	}
 
@@ -18,12 +21,15 @@ public class GameManager : MonoBehaviour {
 	
 	private void Update () {
 		if (Input.GetKeyDown(KeyCode.Space)) {
-			; //	RestartGame(); 
+			RestartGame(); 
 		}
 	}
 
 	private void BeginGame () {
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Generate();
+
+//		if (!mazeInstance.CheckSuccesfulGeneration())
+//			RestartGame ();
 	}
 }

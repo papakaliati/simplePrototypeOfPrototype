@@ -45,10 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\FirstPersonCharacter\FirstPersonController.cs" />
-     <Compile Include="Assets\Scripts\FirstPersonCharacter\HeadBob.cs" />
-     <Compile Include="Assets\Scripts\FirstPersonCharacter\MouseLook.cs" />
-     <Compile Include="Assets\Scripts\FirstPersonCharacter\RigidbodyFirstPersonController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Helpers.cs" />
      <Compile Include="Assets\Scripts\Maze\DoorsOptimization.cs" />
@@ -59,7 +55,9 @@
      <Compile Include="Assets\Scripts\Maze\MazeComplexity.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeDirection.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeDoor.cs" />
+     <Compile Include="Assets\Scripts\Maze\MazeOptimization.cs" />
      <Compile Include="Assets\Scripts\Maze\MazePassage.cs" />
+     <Compile Include="Assets\Scripts\Maze\MazeRandomDoorPropability.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeRoom.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeRoomSettings.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeWall.cs" />
@@ -67,12 +65,6 @@
      <Compile Include="Assets\Scripts\PlaySelections.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMotor.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerShoot.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerWeapon.cs" />
-     <Compile Include="Assets\Scripts\RoomDeco\BlueCube.cs" />
-     <Compile Include="Assets\Scripts\RoomDeco\RedCube.cs" />
-     <Compile Include="Assets\Scripts\RoomDeco\Rock_1A.cs" />
-     <Compile Include="Assets\Scripts\RoomDeco\Rock_1B.cs" />
      <Compile Include="Assets\Scripts\RoomDeco\RoomDecoration.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
