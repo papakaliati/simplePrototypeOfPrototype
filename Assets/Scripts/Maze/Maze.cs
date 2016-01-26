@@ -26,7 +26,10 @@ public class Maze : MonoBehaviour {
 	public MazeDoor doorPrefab;
 
 	[Range(0f, 1f)]
-	public float doorProbability;
+	public float doorProbability = 0.05f;
+
+	[Header("It overrides the doorProbability if greater than zero")]
+	public int MaxDoorNumber = 0;
 
 	public WallSettings wallSettings;
 
@@ -36,18 +39,22 @@ public class Maze : MonoBehaviour {
 
 	public MazeCell[,] cells;
 
+	[HideInInspector]
 	public List<MazeRoom> rooms = new List<MazeRoom>();
 
+	[HideInInspector]
 	public List<int> RoomSizes = new List<int>();
 
 	#endregion
 
 	public void Generate () {
 		cells = new MazeCell[size.x, size.z];
-
 		var mazeGeneration = new RandomDoorPropabilityMaze (this);
 		mazeGeneration.GenerateMaze ();
+	}
 
+	public bool AcceptedNumberOfRoomsInMaze () {
+		return rooms.Count > 2 && (rooms.Count( x => x.Size > 5 )) > 1;
 	}
 
 }

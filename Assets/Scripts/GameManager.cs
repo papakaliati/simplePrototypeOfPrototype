@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Generate();
 
-//		if (!mazeInstance.CheckSuccesfulGeneration())
+//		if (!mazeInstance.AcceptedNumberOfRoomsInMaze())
 //			RestartGame ();
 	}
 }

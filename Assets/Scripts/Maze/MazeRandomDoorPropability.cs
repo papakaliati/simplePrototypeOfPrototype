@@ -16,8 +16,6 @@ public class RandomDoorPropabilityMaze {
 		while (activeCells.Count > 0)
 			DoNextGenerationStep (activeCells);
 		var optimization = new MazeOptimization (this);
-
-
 	}
 
 	private MazeCell GetCell (IntVector2 coordinates) {
@@ -79,8 +77,26 @@ public class RandomDoorPropabilityMaze {
 			CreateWall(currentCell, neighbor, direction);
 	}
 
+	int doorNumber = 0;
+	private MazePassage GetMazePassageBasedOnMaxDoorNumber (MazeCell cell) {
+		if (cell.room != null && cell.room.Size > maze.cells.Length/(maze.MaxDoorNumber+2)  && doorNumber < maze.MaxDoorNumber) {
+ 			doorNumber++;
+			return maze.doorPrefab;
+		}
+		else
+			return maze.passagePrefab;
+	}
+
+	private MazePassage GetMazePassageBasedOnDoorPropability() {
+		return Random.value < maze.doorProbability ? maze.doorPrefab : maze.passagePrefab;
+	}
+
 	private void GeneratePassageDifferentRoom (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
-		var prefab = (Random.value < maze.doorProbability ? maze.doorPrefab : maze.passagePrefab);
+		MazePassage prefab;
+		if (maze.MaxDoorNumber == 0)
+			prefab = GetMazePassageBasedOnDoorPropability ();
+		else 
+			prefab = GetMazePassageBasedOnMaxDoorNumber (cell);
 		MazePassage passage = Maze.Instantiate(prefab) as MazePassage;
 		passage.Initialize(cell, otherCell, direction);
 		passage = Maze.Instantiate(prefab) as MazePassage;
@@ -135,6 +151,7 @@ public class RandomDoorPropabilityMaze {
 	}
 
 	public void CreateWall (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
+		var roomSize = cell.room.Size;
 		var randomNumbers = GetRandomNumberForWallPrefab ();
 		WallGeneration (cell, otherCell, direction, randomNumbers);
 	}
