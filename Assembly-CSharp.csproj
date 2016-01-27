@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B1235EE4-71EE-C815-28F8-C3378E5ADB84}</ProjectGuid>
+    <ProjectGuid>{C810631C-A664-67D6-B6C9-1991FFE8F43E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -62,20 +62,14 @@
      <Compile Include="Assets\Scripts\Maze\MazeRoomSettings.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeWall.cs" />
      <Compile Include="Assets\Scripts\Maze\PropabiliesCalulations.cs" />
-<<<<<<< HEAD
      <Compile Include="Assets\Scripts\MazeObjects\CargoBay.cs" />
-     <Compile Include="Assets\Scripts\MazeObjects\ControlPanel.cs" />
-=======
      <Compile Include="Assets\Scripts\MazeObjects\ControlBox.cs" />
->>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af
+     <Compile Include="Assets\Scripts\MazeObjects\ControlPanel.cs" />
      <Compile Include="Assets\Scripts\MazeObjects\DoorControllingInterraclableMazeObject.cs" />
      <Compile Include="Assets\Scripts\MazeObjects\InterractableMazeObject.cs" />
      <Compile Include="Assets\Scripts\MazeObjects\MazeObject.cs" />
      <Compile Include="Assets\Scripts\MazeObjects\Npc.cs" />
-<<<<<<< HEAD
      <Compile Include="Assets\Scripts\MazeObjects\SpawningSphere.cs" />
-=======
->>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af
      <Compile Include="Assets\Scripts\ObjectsPlacement.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMotor.cs" />
@@ -98,7 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{51DF0FB7-255A-2CCE-9561-AE5AC5E3213F}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{91D83545-B33B-8E0B-0727-12039546A7D8}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

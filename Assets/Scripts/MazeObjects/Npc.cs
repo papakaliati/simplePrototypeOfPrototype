@@ -2,11 +2,10 @@
 using System.Collections;
 
 public class Npc : DoorControllingInterraclableMazeObject {
-<<<<<<< HEAD
 
-    private string[] NPCTalk = new string[7];
+	private string[] NPCTalk = new string[7];
 	private string[] PCTalk = new string[7];
-    private int myIndex = 0;
+	private int myIndex = 0;
 	public bool myTalking = false;
 
 	public override void OnTriggerExit(Collider collider) {
@@ -24,17 +23,13 @@ public class Npc : DoorControllingInterraclableMazeObject {
 		myTalking = false;
 	}
 
-public void OnGUI () {
-	if (myTalking && IsPlayerInProximity) {
-		GUI.Label (new Rect (40, 200, 350, 120), NPCTalk [myIndex]);
-		if (GUI.Button (new Rect (20, 270, 350, 30), PCTalk [myIndex])) {
-			myIndex = myIndex >= 1 ? 0 : ++myIndex;
-			controlledDoor.DoorInterraction ();
+	public void OnGUI () {
+		if (myTalking && IsPlayerInProximity) {
+			GUI.Label (new Rect (40, 200, 350, 120), NPCTalk [myIndex]);
+			if (GUI.Button (new Rect (20, 270, 350, 30), PCTalk [myIndex])) {
+				myIndex = myIndex >= 1 ? 0 : ++myIndex;
+				controlledDoor.DoorInterraction ();
+			}
 		}
 	}
 }
-}
-=======
-	
-}
->>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af

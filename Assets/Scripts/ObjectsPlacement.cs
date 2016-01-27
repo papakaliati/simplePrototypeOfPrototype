@@ -6,18 +6,13 @@ using System.Linq;
 public class ObjectsPlacement {
 
 	private Maze maze;
-<<<<<<< HEAD
 	private MazeCell playerStartingCell;
 	public static List<MazeObject> mazeObjects = new List<MazeObject>();
 	private List<MazeDoor> usedDoors = new List<MazeDoor> ();
-=======
-	public static List<MazeObject> mazeObjects = new List<MazeObject>();
->>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af
 
 	public ObjectsPlacement (Maze maze) {
 		this.maze = maze;
 		SortRooms ();
-<<<<<<< HEAD
 
 		PlayerPlacement (0);
 		GenerateDoorControllingObject<ControlPanel> (maze.controlPanel, 0);
@@ -33,7 +28,7 @@ public class ObjectsPlacement {
 	}
 
 	private void GenerateInterractableObject<T>(T obj, int roomIndex, MazeCell cell)
-			where T : InterractableMazeObject {
+		where T : InterractableMazeObject {
 		InterractableObjectPlacement (cell, obj);
 	}
 
@@ -43,9 +38,9 @@ public class ObjectsPlacement {
 		item.Initialize (cell);
 		mazeObjects.Add (item as MazeObject);
 	}
-		
+
 	private void GenerateDoorControllingObject<T>(T obj, int roomIndex)
-			where T : DoorControllingInterraclableMazeObject {
+		where T : DoorControllingInterraclableMazeObject {
 		var selectedRoomId = maze.rooms [roomIndex].RoomId;
 		var door = maze.rooms [roomIndex].DoorsList
 			.Where (x => (x.cell.room.RoomId == selectedRoomId ||
@@ -56,7 +51,7 @@ public class ObjectsPlacement {
 	}
 
 	private void DoorControllingObjectPlacement<T>(MazeCell cell, MazeDoor door, T obj)
-			where T : DoorControllingInterraclableMazeObject {
+		where T : DoorControllingInterraclableMazeObject {
 		var item = Maze.Instantiate(obj) as T;
 		item.Initialize (cell, door.direction, door);
 		mazeObjects.Add (item as MazeObject);
@@ -66,39 +61,10 @@ public class ObjectsPlacement {
 	private void SortRooms () {
 		maze.rooms.Sort((x, y) =>  x.DoorsList.Count.CompareTo(y.DoorsList.Count));
 	}
-		
+
 	private MazeCell SelectMiddleCell (int index) {
 		var dict = new Dictionary<int, MazeCell> ();
 		foreach (var cell in maze.rooms [index].cells)
-=======
-		FirstRoomPlacement ();
-	}
-
-	private void FirstRoomPlacement() {
-		var playerCharacter = GameObject.Find("Player");
-		var startingCell = SelectStartingCell();
-
-		if (playerCharacter != null)
-			playerCharacter.transform.position = startingCell.transform.position;
-
-		var ControlBox = Maze.Instantiate(maze.controlBox) as ControlBox;
-		var door = maze.rooms[0].DoorsList[0];
-
-		var cells = MazeCell.GetSurroundingCellsInSameRoom (door.cell, door.otherCell, startingCell.room);
-		var controlBoxCell = cells[Random.Range(0, cells.Count -1 )];
-		ControlBox.Initialize (controlBoxCell, door.direction, door);
-
- 		mazeObjects.Add (ControlBox as MazeObject);
-	}
-
-	private void SortRooms () {
-		maze.rooms.Sort((x, y) => x.Size.CompareTo(y.Size));
-	}
-		
-	private MazeCell SelectStartingCell () {
-		var dict = new Dictionary<int, MazeCell> ();
-		foreach (var cell in maze.rooms [0].cells)
->>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af
 			Helpers.AddToDictionary<int, MazeCell> (dict, cell.Complexity, cell);
 		return dict.OrderByDescending (i => i.Key).Select(x => x.Value).FirstOrDefault();
 	}
