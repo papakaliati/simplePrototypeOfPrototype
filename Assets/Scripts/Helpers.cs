@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+<<<<<<< HEAD
 using System;
+=======
+>>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af
 
 public class Helpers {
 

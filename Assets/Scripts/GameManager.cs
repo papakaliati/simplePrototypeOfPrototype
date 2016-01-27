@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 
 
 	public void RestartGame () {
+//		DestroyImmediate (mazeInstance.controlBox.gameObject);
 		Destroy (mazeInstance.gameObject);
 		Destroy (mazeInstance);
 		Debug.ClearDeveloperConsole ();
@@ -34,7 +35,12 @@ public class GameManager : MonoBehaviour {
 			return;
 		}
 
+<<<<<<< HEAD
 		new MazeOptimization (mazeInstance);
 		new ObjectsPlacement (mazeInstance);
+=======
+		var optimization = new MazeOptimization (mazeInstance);
+		var selections = new ObjectsPlacement (mazeInstance);
+>>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af
 	}
 }

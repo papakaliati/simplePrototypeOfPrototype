@@ -62,13 +62,20 @@
      <Compile Include="Assets\Scripts\Maze\MazeRoomSettings.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeWall.cs" />
      <Compile Include="Assets\Scripts\Maze\PropabiliesCalulations.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\MazeObjects\CargoBay.cs" />
      <Compile Include="Assets\Scripts\MazeObjects\ControlPanel.cs" />
+=======
+     <Compile Include="Assets\Scripts\MazeObjects\ControlBox.cs" />
+>>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af
      <Compile Include="Assets\Scripts\MazeObjects\DoorControllingInterraclableMazeObject.cs" />
      <Compile Include="Assets\Scripts\MazeObjects\InterractableMazeObject.cs" />
      <Compile Include="Assets\Scripts\MazeObjects\MazeObject.cs" />
      <Compile Include="Assets\Scripts\MazeObjects\Npc.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\MazeObjects\SpawningSphere.cs" />
+=======
+>>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af
      <Compile Include="Assets\Scripts\ObjectsPlacement.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMotor.cs" />

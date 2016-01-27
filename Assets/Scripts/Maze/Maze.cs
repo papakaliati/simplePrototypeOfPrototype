@@ -25,6 +25,10 @@ public class Maze : MonoBehaviour {
 
 	public MazeDoor doorPrefab;
 
+	public ControlBox controlBox;
+
+	public Npc npc;
+
 	[Range(0f, 1f)]
 	public float doorProbability = 0.05f;
 
@@ -71,8 +75,13 @@ public class Maze : MonoBehaviour {
 	}
 
 	public bool IsGeneratedMazeAccepted () {
+<<<<<<< HEAD
 	//	return true;
 		return rooms.Count == 3 && (rooms.Count( x => x.Size > 5 )) == 3;
+=======
+		return true;
+	//	return rooms.Count == 3 && (rooms.Count( x => x.Size > 5 )) == 3;
+>>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af
 	}
 
 }

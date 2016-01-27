@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Npc : DoorControllingInterraclableMazeObject {
+<<<<<<< HEAD
 
     private string[] NPCTalk = new string[7];
 	private string[] PCTalk = new string[7];
@@ -33,3 +34,7 @@ public void OnGUI () {
 	}
 }
 }
+=======
+	
+}
+>>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af

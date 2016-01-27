@@ -45,6 +45,8 @@ MonoBehaviour:
   cellPrefab: {fileID: 11400000, guid: 8cc5710f710a24360a566370d7049cf8, type: 2}
   passagePrefab: {fileID: 11400000, guid: 4db582300649e4e399ee4a2665f9e8e6, type: 2}
   doorPrefab: {fileID: 11499480, guid: 9bcd844f4ef614fde862faff7fb7ff13, type: 2}
+  controlBox: {fileID: 11473142, guid: 9845325c9cc4947d89700c2ceb52ad08, type: 2}
+  npc: {fileID: 11491928, guid: e03ce4fd552a3497f89dcce139e9b2ae, type: 2}
   doorProbability: 0.269
   MaxDoorNumber: 2
   wallSettings:
@@ -299,6 +301,7 @@ Prefab:
       value: 
       objectReference: {fileID: 11473142, guid: 9845325c9cc4947d89700c2ceb52ad08,
         type: 2}
+<<<<<<< HEAD
     - target: {fileID: 0}
       propertyPath: controlPanel
       value: 
@@ -314,6 +317,8 @@ Prefab:
       value: 
       objectReference: {fileID: 11403530, guid: a2376acdedd04450a9d9b91483809396,
         type: 2}
+=======
+>>>>>>> 982e27a5b55b60cfd5ff5fa6de61483fbe69d5af
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
