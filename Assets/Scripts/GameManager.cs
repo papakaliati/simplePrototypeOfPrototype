@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 
 
 	public void RestartGame () {
+//		DestroyImmediate (mazeInstance.controlBox.gameObject);
 		Destroy (mazeInstance.gameObject);
 		Destroy (mazeInstance);
 		Debug.ClearDeveloperConsole ();
@@ -29,7 +30,12 @@ public class GameManager : MonoBehaviour {
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Generate();
 
-//		if (!mazeInstance.AcceptedNumberOfRoomsInMaze())
-//			RestartGame ();
+		if (!mazeInstance.IsGeneratedMazeAccepted ()) {
+			RestartGame ();
+			return;
+		}
+
+		var optimization = new MazeOptimization (mazeInstance);
+		var selections = new ObjectsPlacement (mazeInstance);
 	}
 }

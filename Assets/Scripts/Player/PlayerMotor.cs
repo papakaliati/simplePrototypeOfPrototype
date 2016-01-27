@@ -10,7 +10,6 @@ public class PlayerMotor : MonoBehaviour {
     private Vector3 Velocity;
     private Vector3 Rotation;
     private Vector3 CameraRotation;
-
     private Rigidbody rb;
 
     void Start()

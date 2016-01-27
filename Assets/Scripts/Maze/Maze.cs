@@ -25,6 +25,10 @@ public class Maze : MonoBehaviour {
 
 	public MazeDoor doorPrefab;
 
+	public ControlBox controlBox;
+
+	public Npc npc;
+
 	[Range(0f, 1f)]
 	public float doorProbability = 0.05f;
 
@@ -33,7 +37,7 @@ public class Maze : MonoBehaviour {
 
 	public WallSettings wallSettings;
 
-	public RoomDecoration[] roomDecorations;
+	public MazeObject[] roomDecorations;
 
 	public MazeRoomSettings[] roomSettings;
 
@@ -45,16 +49,20 @@ public class Maze : MonoBehaviour {
 	[HideInInspector]
 	public List<int> RoomSizes = new List<int>();
 
+	[HideInInspector]
+	public RandomDoorPropabilityMaze randomDoorPropabilityMaze;
+
 	#endregion
 
 	public void Generate () {
 		cells = new MazeCell[size.x, size.z];
-		var mazeGeneration = new RandomDoorPropabilityMaze (this);
-		mazeGeneration.GenerateMaze ();
+		randomDoorPropabilityMaze = new RandomDoorPropabilityMaze (this);
+		randomDoorPropabilityMaze.GenerateMaze ();
 	}
 
-	public bool AcceptedNumberOfRoomsInMaze () {
-		return rooms.Count > 2 && (rooms.Count( x => x.Size > 5 )) > 1;
+	public bool IsGeneratedMazeAccepted () {
+		return true;
+	//	return rooms.Count == 3 && (rooms.Count( x => x.Size > 5 )) == 3;
 	}
 
 }
