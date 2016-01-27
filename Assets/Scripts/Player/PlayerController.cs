@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 [RequireComponent(typeof(PlayerMotor))]
 
@@ -12,65 +13,65 @@ public class PlayerController : MonoBehaviour {
 
     private PlayerMotor motor;
 
-
-
     void Start()
     {
         motor = GetComponent<PlayerMotor>();
     }
 
-	float maxDistance = 10f;
+	private void Interractions () {
+		CargoBayInterraction ();
+		DoorInterraction ();
+		NpcInterraction ();
+	}
 
-    void Update() {
-		try {
-		RaycastHit Hit ;
-		if (Input.GetKeyDown (KeyCode.R)
-			&& Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out Hit, maxDistance)
-			&& Hit.collider.tag == "Door") {
-			var door = Hit.collider.GetComponent <MazeDoor> ();
-			if (door is MazeDoor)
-				((MazeDoor)door).DoorInterraction ();
-			}
-		} catch ( System.Exception ex) {
-			Debug.Log (ex.Message);
-			Debug.Log (ex);
+	private void CargoBayInterraction() {
+		var obj = ObjectsPlacement.mazeObjects
+			.OfType<CargoBay> ()
+			.Where (x => x.IsPlayerInProximity)
+			.Select (x => x as CargoBay).FirstOrDefault ();
+		if (obj == null) return;
 
-		}
+		obj.SpawnSphereObject ();
+	}
 
-        float xMovement = Input.GetAxisRaw("Horizontal");
-        float zMovement = Input.GetAxisRaw("Vertical");
+	private void NpcInterraction() {
+		var obj = ObjectsPlacement.mazeObjects
+			.OfType<Npc> ()
+			.Where (x => x.IsPlayerInProximity)
+			.Select (x => x as Npc).FirstOrDefault ();
+		if (obj == null) return;
 
-        Vector3 MoveHorizontal = transform.right * xMovement;
-        Vector3 MoveVertical = transform.forward * zMovement;
+		obj.myTalking = !obj.myTalking;
+	}
 
-        //Final Movement Vector
-        Vector3 Velocity = (MoveHorizontal + MoveVertical).normalized * ScreenSpeed;
+	private void DoorInterraction ()	{
+		var obj = ObjectsPlacement.mazeObjects.OfType<ControlPanel> ()
+			.Where (x => x.IsPlayerInProximity)
+			.Select (x => x as ControlPanel).FirstOrDefault ();
+		if (obj == null) return;
+		var door = obj.controlledDoor;
 
-        //Apply motion
-        motor.move(Velocity);
+		door.DoorInterraction ();
+	}
 
-        //Get rotation
+	void Update() {
+		if (Input.GetKeyDown (KeyCode.R)) 
+			Interractions ();
+		float xMovement = Input.GetAxisRaw ("Horizontal");
+		float zMovement = Input.GetAxisRaw ("Vertical");
+		Vector3 MoveHorizontal = transform.right * xMovement;
+		Vector3 MoveVertical = transform.forward * zMovement;
+		Vector3 Velocity = (MoveHorizontal + MoveVertical).normalized * ScreenSpeed;
+		motor.move (Velocity);
+		float yRot = Input.GetAxisRaw ("Mouse X");
+		Vector3 rotation = new Vector3 (0, yRot, 0) * RotationSpeed;
+		motor.rotate (rotation);
+		CameraUpdate ();
+	}
 
-        float yRot = Input.GetAxisRaw("Mouse X");
-
-        Vector3 rotation = new Vector3(0, yRot, 0) * RotationSpeed;
-
-        //Apply rotation
-        motor.rotate(rotation);
-        CameraUpdate();
-
-        
-    }
-
-    void CameraUpdate()
-    {
-        //Get camera rotation
-
+    void CameraUpdate() {
         float xRot = Input.GetAxisRaw("Mouse Y");
-
         Vector3 CameraRotation = new Vector3(xRot, 0, 0) * RotationSpeed;
-
-        //Apply rotation
         motor.rotateCamera(CameraRotation);
     }
 }

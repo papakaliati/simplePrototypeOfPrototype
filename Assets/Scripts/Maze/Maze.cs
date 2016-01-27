@@ -33,11 +33,19 @@ public class Maze : MonoBehaviour {
 
 	public WallSettings wallSettings;
 
-	public RoomDecoration[] roomDecorations;
+	public MazeObject[] roomDecorations;
 
 	public MazeRoomSettings[] roomSettings;
 
 	public MazeCell[,] cells;
+
+	public SpawningSphere spawningSphere;
+
+	public Npc npc;
+
+	public ControlPanel controlPanel;
+
+	public CargoBay cargoBay;
 
 	[HideInInspector]
 	public List<MazeRoom> rooms = new List<MazeRoom>();
@@ -45,16 +53,26 @@ public class Maze : MonoBehaviour {
 	[HideInInspector]
 	public List<int> RoomSizes = new List<int>();
 
+	[HideInInspector]
+	public RandomDoorPropabilityMaze randomDoorPropabilityMaze;
+
 	#endregion
+
+	public static Maze maze;
+
+	public Maze() {
+		maze = this;
+	}
 
 	public void Generate () {
 		cells = new MazeCell[size.x, size.z];
-		var mazeGeneration = new RandomDoorPropabilityMaze (this);
-		mazeGeneration.GenerateMaze ();
+		randomDoorPropabilityMaze = new RandomDoorPropabilityMaze (this);
+		randomDoorPropabilityMaze.GenerateMaze ();
 	}
 
-	public bool AcceptedNumberOfRoomsInMaze () {
-		return rooms.Count > 2 && (rooms.Count( x => x.Size > 5 )) > 1;
+	public bool IsGeneratedMazeAccepted () {
+	//	return true;
+		return rooms.Count == 3 && (rooms.Count( x => x.Size > 5 )) == 3;
 	}
 
 }

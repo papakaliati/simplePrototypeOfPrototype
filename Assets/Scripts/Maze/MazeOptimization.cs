@@ -6,13 +6,10 @@ using System.Linq;
 public class MazeOptimization {
 
 	private MazeComplexity mazeComplexity { set ; get;}
-
-	private RandomDoorPropabilityMaze randomDoorPropabilityMaze;
 	private Maze maze;
 
-	public MazeOptimization (RandomDoorPropabilityMaze randomDoorPropabilityMaze) {
-		this.randomDoorPropabilityMaze = randomDoorPropabilityMaze;
-		this.maze = randomDoorPropabilityMaze.maze;
+	public MazeOptimization (Maze maze) {
+		this.maze = maze;
 		mazeComplexity = new MazeComplexity (maze.rooms);
 		var doorsOptimization = new DoorsOptimization ();
 		var doorsToBeRemoved = doorsOptimization.CalculateRemovableDoors (ref maze.cells);
@@ -20,8 +17,6 @@ public class MazeOptimization {
 		CreateDoorList ();
 		PrintRoomsAndDoors ();	// For Testing Only
 	}
-
-
 
 	/// <summary>
 	/// Removes the extra doors and closes the gap wall on its place
@@ -34,7 +29,7 @@ public class MazeOptimization {
 			var edge = door.otherCell.GetEdge ( MazeDirections.GetOpposite(door.direction));
 			if (edge is MazeDoor) {
 				if (((MazeDoor)edge).DoorDescription == Helpers.kDeletedDoorDescription)
-					randomDoorPropabilityMaze.CreateWall (door.cell, door.otherCell, door.direction);
+					maze.randomDoorPropabilityMaze.CreateWall (door.cell, door.otherCell, door.direction);
 			}
 
 			door.cell.room.DoorsList.Remove (door);
@@ -61,7 +56,7 @@ public class MazeOptimization {
 		Dictionary<MazeRoom, List<MazeDoor>> RoomsToDoors = new Dictionary<MazeRoom, List<MazeDoor>>();
 		var doors = new List<MazeDoor> ();
 		foreach (var room in maze.rooms) {
-			RoomsToDoors.Add (room, new List<MazeDoor> ());
+			Helpers.AddToDictionary<MazeRoom, List<MazeDoor>>(RoomsToDoors, room, new List<MazeDoor> ());
 			foreach (var door in room.DoorsList)
 				doors.Add (door);
 		}

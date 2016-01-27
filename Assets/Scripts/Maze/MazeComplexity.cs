@@ -37,7 +37,7 @@ public class MazeComplexity  {
 		bool edgeReached = false;
 
 		while (!edgeReached) {
-			var neighborhoodCells = MazeCell.GetNeighborhoodCells (cell, counter++);
+			var neighborhoodCells = MazeCell.GetAllNeighborhoodCellsInSameRoom (cell, counter++);
 			complexity += neighborhoodCells.Count;
 			if (neighborhoodCells.Count < 8) 
 				edgeReached = true;	

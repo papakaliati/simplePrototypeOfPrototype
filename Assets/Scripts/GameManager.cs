@@ -29,7 +29,12 @@ public class GameManager : MonoBehaviour {
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Generate();
 
-//		if (!mazeInstance.AcceptedNumberOfRoomsInMaze())
-//			RestartGame ();
+		if (!mazeInstance.IsGeneratedMazeAccepted ()) {
+			RestartGame ();
+			return;
+		}
+
+		new MazeOptimization (mazeInstance);
+		new ObjectsPlacement (mazeInstance);
 	}
 }

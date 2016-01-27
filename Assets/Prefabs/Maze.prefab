@@ -46,7 +46,7 @@ MonoBehaviour:
   passagePrefab: {fileID: 11400000, guid: 4db582300649e4e399ee4a2665f9e8e6, type: 2}
   doorPrefab: {fileID: 11499480, guid: 9bcd844f4ef614fde862faff7fb7ff13, type: 2}
   doorProbability: 0.269
-  MaxDoorNumber: 4
+  MaxDoorNumber: 2
   wallSettings:
     wallPrefabs:
     - {fileID: 11409166, guid: ae430629cc4af44488646644c21ca2d7, type: 2}
@@ -75,6 +75,10 @@ MonoBehaviour:
     wallMaterial: {fileID: 2100000, guid: 1cc4368044cac4d248d55ea4d5c327ca, type: 2}
   - floorMaterial: {fileID: 2100000, guid: ae2d744d96db048f697bc55259d9b23e, type: 2}
     wallMaterial: {fileID: 2100000, guid: 1cc4368044cac4d248d55ea4d5c327ca, type: 2}
+  spawningSphere: {fileID: 11461050, guid: 358fb0f90b8f0454cbcda52577e6b54c, type: 2}
+  npc: {fileID: 11491928, guid: e03ce4fd552a3497f89dcce139e9b2ae, type: 2}
+  controlPanel: {fileID: 11473142, guid: 9845325c9cc4947d89700c2ceb52ad08, type: 2}
+  cargoBay: {fileID: 11403530, guid: a2376acdedd04450a9d9b91483809396, type: 2}
   rooms: []
   RoomSizes: 
 --- !u!1001 &100100000
@@ -283,8 +287,33 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: MaxDoorNumber
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: npc
+      value: 
+      objectReference: {fileID: 11491928, guid: e03ce4fd552a3497f89dcce139e9b2ae,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: controlBox
+      value: 
+      objectReference: {fileID: 11473142, guid: 9845325c9cc4947d89700c2ceb52ad08,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: controlPanel
+      value: 
+      objectReference: {fileID: 11473142, guid: 9845325c9cc4947d89700c2ceb52ad08,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: spawningSphere
+      value: 
+      objectReference: {fileID: 11461050, guid: 358fb0f90b8f0454cbcda52577e6b54c,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: cargoBay
+      value: 
+      objectReference: {fileID: 11403530, guid: a2376acdedd04450a9d9b91483809396,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}

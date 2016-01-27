@@ -1,0 +1,23 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/PlayerMotor.cs">
+    <Files>
+      <File FileName="Assets/Scripts/MazeObjects/DoorControllingInterraclableMazeObject.cs" Line="11" Column="3" />
+      <File FileName="Assets/Scripts/Maze/Maze.cs" Line="64" Column="3" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="12" Column="1" />
+      <File FileName="Assets/Scripts/MazeObjects/MazeObject.cs" Line="12" Column="1" />
+      <File FileName="Assets/Scripts/MazeObjects/InterractableMazeObject.cs" Line="19" Column="1" />
+      <File FileName="Assets/Scripts/Player/PlayerController.cs" Line="72" Column="24" />
+      <File FileName="Assets/Scripts/MazeObjects/SpawningSphere.cs" Line="24" Column="25" />
+      <File FileName="Assets/Scripts/MazeObjects/CargoBay.cs" Line="11" Column="2" />
+      <File FileName="Assets/Scripts/Helpers.cs" Line="17" Column="2" />
+      <File FileName="Assets/Scripts/Player/PlayerMotor.cs" Line="7" Column="2" />
+      <File FileName="Assets/Scripts/MazeObjects/Npc.cs" Line="14" Column="1" />
+      <File FileName="Assets/Scripts/MazeObjects/ControlPanel.cs" Line="4" Column="69" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
