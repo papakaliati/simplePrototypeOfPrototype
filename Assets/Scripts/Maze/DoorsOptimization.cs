@@ -66,10 +66,7 @@ public class DoorsOptimization  {
 	private List<MazeDoor> ExtractEssentialDoors (List<MazeDoor> allDoors){
 		Dictionary<string, MazeDoor> doorsToKeepDictionary = new Dictionary<string, MazeDoor> ();
 		foreach (var door in allDoors) {
-			if (doorsToKeepDictionary.ContainsKey (door.DoorDescription))
-				doorsToKeepDictionary [door.DoorDescription] = door;
-			else
-				doorsToKeepDictionary.Add (door.DoorDescription, door);
+			Helpers.AddToDictionary<string, MazeDoor> (doorsToKeepDictionary, door.DoorDescription, door);
 		}
 		return doorsToKeepDictionary.Values.ToList();
 	}
