@@ -30,7 +30,7 @@ public class MazeDoor : MazePassage {
 			CloseDoor ();
 			return;
 		}
-		if (!isDoorOpen) isDoorOpen = true;
+		isDoorOpen = true;
 		hinge.localRotation = normalRotation;
 	//	hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
 	}
