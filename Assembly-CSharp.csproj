@@ -3,9 +3,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.20506</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
     <ProjectGuid>{C810631C-A664-67D6-B6C9-1991FFE8F43E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -34,65 +33,67 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.XML" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\Helpers.cs" />
-     <Compile Include="Assets\Scripts\Maze\DoorsOptimization.cs" />
-     <Compile Include="Assets\Scripts\Maze\IntVector2.cs" />
-     <Compile Include="Assets\Scripts\Maze\Maze.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeCell.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeCellEdge.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeComplexity.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeDirection.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeDoor.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeOptimization.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazePassage.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeRandomDoorPropability.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeRoom.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeRoomSettings.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeWall.cs" />
-     <Compile Include="Assets\Scripts\Maze\PropabiliesCalulations.cs" />
-     <Compile Include="Assets\Scripts\MazeObjects\CargoBay.cs" />
-     <Compile Include="Assets\Scripts\MazeObjects\ControlBox.cs" />
-     <Compile Include="Assets\Scripts\MazeObjects\ControlPanel.cs" />
-     <Compile Include="Assets\Scripts\MazeObjects\DoorControllingInterraclableMazeObject.cs" />
-     <Compile Include="Assets\Scripts\MazeObjects\InterractableMazeObject.cs" />
-     <Compile Include="Assets\Scripts\MazeObjects\MazeObject.cs" />
-     <Compile Include="Assets\Scripts\MazeObjects\Npc.cs" />
-     <Compile Include="Assets\Scripts\MazeObjects\SpawningSphere.cs" />
-     <Compile Include="Assets\Scripts\ObjectsPlacement.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerMotor.cs" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
-     <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
-     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-     <None Include="Assets\license.txt" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
-     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
-     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
-     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
- <Reference Include="UnityEngine.UI">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Networking">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Helpers.cs" />
+    <Compile Include="Assets\Scripts\Maze\DoorsOptimization.cs" />
+    <Compile Include="Assets\Scripts\Maze\IntVector2.cs" />
+    <Compile Include="Assets\Scripts\Maze\Maze.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazeCell.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazeCellEdge.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazeComplexity.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazeDirection.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazeDoor.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazeOptimization.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazePassage.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazeRandomDoorPropability.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazeRoom.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazeRoomSettings.cs" />
+    <Compile Include="Assets\Scripts\Maze\MazeWall.cs" />
+    <Compile Include="Assets\Scripts\Maze\PropabiliesCalulations.cs" />
+    <Compile Include="Assets\Scripts\MazeObjects\CargoBay.cs" />
+    <Compile Include="Assets\Scripts\MazeObjects\ControlBox.cs" />
+    <Compile Include="Assets\Scripts\MazeObjects\ControlPanel.cs" />
+    <Compile Include="Assets\Scripts\MazeObjects\DoorControllingInterraclableMazeObject.cs" />
+    <Compile Include="Assets\Scripts\MazeObjects\InterractableMazeObject.cs" />
+    <Compile Include="Assets\Scripts\MazeObjects\MazeObject.cs" />
+    <Compile Include="Assets\Scripts\MazeObjects\Npc.cs" />
+    <Compile Include="Assets\Scripts\MazeObjects\SpawningSphere.cs" />
+    <Compile Include="Assets\Scripts\ObjectsPlacement.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMotor.cs" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
+    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\license.txt" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+    <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
+    <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
+    <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\Networking\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <None Include="Assets\Standard Assets\Environment\Water %28Basic%29\Shaders\FXWaterBasic.shader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{91D83545-B33B-8E0B-0727-12039546A7D8}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{91D83545-B33B-8E0B-0727-12039546A7D8}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -102,5 +103,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
 </Project>

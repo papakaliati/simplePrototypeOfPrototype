@@ -63,6 +63,12 @@ public class DoorsOptimization  {
 		return doors;
 	}
 
+	/// <summary>
+	/// Extracts the essential doors.
+	/// Keeps a single door between two rooms.
+	/// </summary>
+	/// <returns>The essential doors.</returns>
+	/// <param name="allDoors">All doors.</param>
 	private List<MazeDoor> ExtractEssentialDoors (List<MazeDoor> allDoors){
 		Dictionary<string, MazeDoor> doorsToKeepDictionary = new Dictionary<string, MazeDoor> ();
 		foreach (var door in allDoors) {
