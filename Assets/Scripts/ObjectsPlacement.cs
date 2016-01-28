@@ -7,7 +7,6 @@ public class ObjectsPlacement {
 
 	private Maze maze;
 	private MazeCell playerStartingCell;
-	public static List<MazeObject> mazeObjects = new List<MazeObject>();
 	private List<MazeDoor> usedDoors = new List<MazeDoor> ();
 
 	public ObjectsPlacement (Maze maze) {
@@ -76,7 +75,7 @@ public class ObjectsPlacement {
 			where T : InterractableMazeObject {
 		var item = Maze.Instantiate(obj) as T;
 		item.Initialize (cell);
-		mazeObjects.Add (item as MazeObject);
+		maze.mazeObjects.Add (item as MazeObject);
 	}
 
 	/// <summary>
@@ -106,7 +105,7 @@ public class ObjectsPlacement {
 		where T : DoorControllingInterraclableMazeObject {
 		var item = Maze.Instantiate(obj) as T;
 		item.Initialize (cell, door.direction, door);
-		mazeObjects.Add (item as MazeObject);
+		maze.mazeObjects.Add (item as MazeObject);
 		usedDoors.Add (door);
 	}
 

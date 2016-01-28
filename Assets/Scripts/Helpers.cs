@@ -40,4 +40,8 @@ public class Helpers {
 		return fieldValues.OfType<T>().Cast<T>().FirstOrDefault ();
 	}
 
+	public static bool CanDestroy (System.DateTime time) {
+		return time <= System.DateTime.Now;
+	}
+
 }

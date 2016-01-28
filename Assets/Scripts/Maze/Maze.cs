@@ -56,6 +56,10 @@ public class Maze : MonoBehaviour {
 	[HideInInspector]
 	public RandomDoorPropabilityMaze randomDoorPropabilityMaze;
 
+	[HideInInspector]
+	public List<MazeObject> mazeObjects = new List<MazeObject>();
+
+
 	#endregion
 
 	public static Maze maze;

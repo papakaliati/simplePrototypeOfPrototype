@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void CargoBayInterraction() {
-		var obj = ObjectsPlacement.mazeObjects
+		var obj = Maze.maze.mazeObjects
 			.OfType<CargoBay> ()
 			.Where (x => x.IsPlayerInProximity)
 			.Select (x => x as CargoBay).FirstOrDefault ();
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void NpcInterraction() {
-		var obj = ObjectsPlacement.mazeObjects
+		var obj = Maze.maze.mazeObjects
 			.OfType<Npc> ()
 			.Where (x => x.IsPlayerInProximity)
 			.Select (x => x as Npc).FirstOrDefault ();
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void DoorInterraction ()	{
-		var obj = ObjectsPlacement.mazeObjects.OfType<ControlPanel> ()
+		var obj = Maze.maze.mazeObjects.OfType<ControlPanel> ()
 			.Where (x => x.IsPlayerInProximity)
 			.Select (x => x as ControlPanel).FirstOrDefault ();
 		if (obj == null) return;
