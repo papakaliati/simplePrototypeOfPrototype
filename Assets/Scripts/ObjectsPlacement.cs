@@ -15,10 +15,7 @@ public class ObjectsPlacement {
 		SortRooms ();
 		PlayerPlacement (maze.rooms[0]);
 
-	//	AddControlPanelsToDoors <ControlPanel>();
-		GenerateDoorControllingObject<ControlPanel> (maze, maze.rooms[0]);
-		GenerateDoorControllingObject<Npc> (maze, maze.rooms[2]);
-		GenerateInterractableObject<CargoBay> (maze, maze.rooms[1]);
+		GenerateObjects ();
 	}
 
 	/// <summary>
@@ -35,7 +32,36 @@ public class ObjectsPlacement {
 		playerCharacter.transform.position = playerStartingCell.transform.position;
 	}
 
-	private void AddControlPanelsToDoors<T> () {
+	private void GenerateObjects() {
+		var dict = new Dictionary<InterractableMazeObject, MazeRoom> () {
+			{maze.controlPanel, maze.rooms [0]},
+			{maze.npc, maze.rooms [2]},
+			{maze.cargoBay, maze.rooms [1]},
+		};
+		AddControlsToRooms (dict);
+	}
+
+	private System.Action<object,MazeRoom> GetFunc (InterractableMazeObject key) {
+		if (key is ControlPanel)
+			return GenerateDoorControllingObject<ControlPanel>;
+		else if (key is Npc)
+			return GenerateDoorControllingObject<Npc>;
+		else if (key is CargoBay)
+			return GenerateInterractableObject<CargoBay>;
+		else
+			return null;
+	}
+
+	private void AddControlsToRooms (Dictionary <InterractableMazeObject, MazeRoom> dict) {
+		foreach (var pair in dict) {
+			var func = GetFunc (pair.Key);
+			if (func == null) continue;
+			func (maze, pair.Value);
+		}
+	}
+
+	private void GenerationMethod () {
+
 	}
 
 	private void GenerateInterractableObject<T>(object parentClass, MazeRoom room)
