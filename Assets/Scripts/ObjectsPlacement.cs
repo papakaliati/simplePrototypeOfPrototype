@@ -15,9 +15,13 @@ public class ObjectsPlacement {
 		SortRooms ();
 
 		PlayerPlacement (0);
-		GenerateDoorControllingObject<ControlPanel> (maze.controlPanel, 0);
-		GenerateDoorControllingObject<Npc> (maze.npc, 2);
-		GenerateInterractableObject<CargoBay> (maze.cargoBay, 1, SelectMiddleCell (1));
+
+
+	//	AddControlPanelsToDoors <ControlPanel>();
+
+		GenerateDoorControllingObject<ControlPanel> (maze, 0);
+		GenerateDoorControllingObject<Npc> (maze, 2);
+		GenerateInterractableObject<CargoBay> (maze, 1, SelectMiddleCell (1));
 	}
 
 	private void PlayerPlacement(int index) {
@@ -27,20 +31,30 @@ public class ObjectsPlacement {
 		playerCharacter.transform.position = playerStartingCell.transform.position;
 	}
 
-	private void GenerateInterractableObject<T>(T obj, int roomIndex, MazeCell cell)
-		where T : InterractableMazeObject {
+	private void AddControlPanelsToDoors<T> () {
+		
+	}
+
+	private void GenerateInterractableObject<T>(object parentClass, int roomIndex, MazeCell cell)
+			where T : InterractableMazeObject {
+		var obj = Helpers.ExtractObjectOfType<T> (parentClass);
+		if (obj == null) return;
 		InterractableObjectPlacement (cell, obj);
 	}
 
 	private void InterractableObjectPlacement<T>(MazeCell cell, T obj)
-		where T : InterractableMazeObject {
+			where T : InterractableMazeObject {
 		var item = Maze.Instantiate(obj) as T;
 		item.Initialize (cell);
 		mazeObjects.Add (item as MazeObject);
 	}
 
-	private void GenerateDoorControllingObject<T>(T obj, int roomIndex)
-		where T : DoorControllingInterraclableMazeObject {
+	private void GenerateDoorControllingObject<T>(object parentClass, int roomIndex)
+			where T : DoorControllingInterraclableMazeObject {
+
+		var obj = Helpers.ExtractObjectOfType<T> (parentClass);
+		if (obj == null) return;
+
 		var selectedRoomId = maze.rooms [roomIndex].RoomId;
 		var door = maze.rooms [roomIndex].DoorsList
 			.Where (x => (x.cell.room.RoomId == selectedRoomId ||

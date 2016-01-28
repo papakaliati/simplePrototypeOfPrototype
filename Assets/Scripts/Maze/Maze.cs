@@ -71,8 +71,8 @@ public class Maze : MonoBehaviour {
 	}
 
 	public bool IsGeneratedMazeAccepted () {
-		//	return true;
-		return rooms.Count == 3 && (rooms.Count( x => x.Size > 5 )) == 3;
+		return true;
+	//	return rooms.Count == 3 && (rooms.Count( x => x.Size > 5 )) == 3;
 	}
 
 }

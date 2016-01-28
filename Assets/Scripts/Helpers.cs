@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class Helpers {
 
@@ -12,6 +13,14 @@ public class Helpers {
 			dict [t1] = t2;
 		else
 			dict.Add (t1, t2);
+	}
+
+	public static T ExtractObjectOfType<T>(object parentClass) {
+		var fieldValues = parentClass.GetType()
+			.GetFields()
+			.Select(field => field.GetValue(parentClass))
+			.ToList();
+		return fieldValues.OfType<T>().Cast<T>().FirstOrDefault ();
 	}
 
 }
