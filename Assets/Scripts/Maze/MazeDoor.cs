@@ -24,15 +24,6 @@ public class MazeDoor : MazePassage {
 			return otherCell.GetEdge(direction.GetOpposite()) as MazeDoor;
 		}
 	}
-
-
-	private void OnTriggerStay() {
-
-//		if (Input.GetKeyDown(KeyCode.R)) {
-//			DoorInterraction();
-//		}
-
-	}
 		
 	public void DoorInterraction () {
 		if (isDoorOpen) {
@@ -40,20 +31,13 @@ public class MazeDoor : MazePassage {
 			return;
 		}
 		if (!isDoorOpen) isDoorOpen = true;
-
-		hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
-//		OtherSideOfDoor.isDoorOpen = true;
-//		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
-//		OtherSideOfDoor.cell.room.Show();
+		hinge.localRotation = normalRotation;
+	//	hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
 	}
 
 	private void CloseDoor() {
 		hinge.localRotation = hinge.localRotation = Quaternion.identity;
 		isDoorOpen = false;
-
-//		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
-//		OtherSideOfDoor.cell.room.Hide();
-//		OtherSideOfDoor.isDoorOpen = false;
 	}
 
 	public override void Initialize (MazeCell primary, MazeCell other, MazeDirection direction) {

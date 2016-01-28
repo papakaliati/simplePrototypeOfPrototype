@@ -35,8 +35,8 @@ public class ObjectsPlacement {
 	private void GenerateObjects() {
 		var dict = new Dictionary<InterractableMazeObject, MazeRoom> () {
 			{maze.controlPanel, maze.rooms [0]},
-			{maze.npc, maze.rooms [2]},
 			{maze.cargoBay, maze.rooms [1]},
+			{maze.npc, maze.rooms [2]},
 		};
 		AddControlsToRooms (dict);
 	}
