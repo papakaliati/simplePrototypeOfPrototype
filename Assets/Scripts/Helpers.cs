@@ -10,7 +10,7 @@ public class Helpers {
 
 	/// <summary>
 	/// Adds to dictionary.
-	/// If Key already pressent, it overrides it 
+	/// If Key already pressent, it overrides it.
 	/// </summary>
 	/// <param name="dict">Dictionary.</param>
 	/// <param name="t1">T1, Dictionary key Type.</param>
@@ -26,8 +26,8 @@ public class Helpers {
 
 	/// <summary>
 	/// Extracts the type of the object of.
-	/// If more than one public variable with that name, the first will always be returned
-	/// If none found, null will be returned so a null check on the caller is required
+	/// If more than one public variable with that name, the first will always be returned.
+	/// If none found, null will be returned so a null check on the caller is required.
 	/// </summary>
 	/// <returns>The object of type.</returns>
 	/// <param name="parentClass">Parent class.</param>
