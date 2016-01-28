@@ -54,9 +54,9 @@ public class ObjectsPlacement {
 
 	private void AddControlsToRooms (Dictionary <InterractableMazeObject, MazeRoom> dict) {
 		foreach (var pair in dict) {
-			var func = GetFunc (pair.Key);
-			if (func == null) continue;
-			func (maze, pair.Value);
+			var action = GetFunc (pair.Key);
+			if (action == null) continue;
+			action (maze, pair.Value);
 		}
 	}
 
